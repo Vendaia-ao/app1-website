@@ -1,10 +1,12 @@
 import { useState, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { mainNavigation, MenuItem } from '../data/navigation';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function MegaMenu() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { t } = useLanguage();
 
   const handleMouseEnter = (id: string) => {
     if (hideTimeoutRef.current) {
@@ -17,6 +19,12 @@ export default function MegaMenu() {
     hideTimeoutRef.current = setTimeout(() => {
       setActiveMenu(null);
     }, 150); // slight delay to make moving to the dropdown easier
+  };
+
+  const getTranslatedLabel = (id: string, originalLabel: string) => {
+    const key = `nav.${id}`;
+    const translated = t(key);
+    return translated !== key ? translated : originalLabel;
   };
 
   return (
@@ -40,7 +48,7 @@ export default function MegaMenu() {
                 }`
               }
             >
-              {item.label}
+              {getTranslatedLabel(item.id, item.label)}
             </NavLink>
 
             {item.columns && item.columns.length > 0 && activeMenu === item.id && (

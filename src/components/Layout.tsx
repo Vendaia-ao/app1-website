@@ -4,11 +4,15 @@ import Footer from './Footer';
 import GlobalSearch from './GlobalSearch';
 import Breadcrumb from './Breadcrumb';
 import MegaMenu from './MegaMenu';
+import ScrollToTopButton from './ScrollToTopButton';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useLanguage } from '../contexts/LanguageContext';
 import { mainNavigation } from '../data/navigation';
 
 export default function Layout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [expandedMobileMenu, setExpandedMobileMenu] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   
@@ -16,9 +20,15 @@ export default function Layout() {
     setExpandedMobileMenu(expandedMobileMenu === id ? null : id);
   };
 
+  const getTranslatedLabel = (id: string, originalLabel: string) => {
+    const key = `nav.${id}`;
+    const translated = t(key);
+    return translated !== key ? translated : originalLabel;
+  };
+
   return (
     <div className="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
-      <header className="bg-surface-container-lowest border-b border-isec-silver h-[64px] flex items-center sticky top-0 z-50 w-full shrink-0">
+      <header className="bg-surface-container-lowest border-b border-isec-silver h-[64px] flex items-center sticky top-0 z-50 w-full shrink-0 print:hidden">
         <div className="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto h-full relative">
           <NavLink to="/" className="flex items-center gap-2 group shrink-0" onClick={() => setIsMobileMenuOpen(false)}>
             <div className="flex flex-col relative leading-none">
@@ -34,14 +44,16 @@ export default function Layout() {
           <div className="hidden lg:flex items-center gap-4 ml-auto shrink-0 text-[11px] font-bold text-secondary uppercase tracking-wider">
             <div className="flex items-center gap-2">
               <GlobalSearch />
+              <LanguageSwitcher />
             </div>
             <Link to="/portal" className="bg-isec-crimson text-white px-4 py-2 rounded font-bold hover:bg-red-800 transition-colors tracking-widest text-[11px]">
-              PORTAL
+              {t('nav.portal')}
             </Link>
           </div>
 
           <div className="lg:hidden flex items-center gap-4 ml-auto">
             <GlobalSearch />
+            <LanguageSwitcher />
             <button 
               onClick={toggleMobileMenu}
               className="text-isec-dark-gray p-2 active:opacity-80 flex items-center justify-center"
@@ -57,7 +69,7 @@ export default function Layout() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div id="mobile-menu" role="navigation" aria-label="Menu principal móvel" className="lg:hidden fixed inset-0 top-[64px] z-40 bg-white overflow-y-auto border-t border-isec-silver animate-in slide-in-from-top-2 duration-200">
+        <div id="mobile-menu" role="navigation" aria-label="Menu principal móvel" className="lg:hidden fixed inset-0 top-[64px] z-40 bg-white overflow-y-auto border-t border-isec-silver animate-in slide-in-from-top-2 duration-200 print:hidden">
           <div className="flex flex-col p-6 gap-2">
             {mainNavigation.map((item) => (
               <div key={item.id} className="flex flex-col border-b border-isec-silver last:border-0 pb-2 mb-2">
@@ -67,7 +79,7 @@ export default function Layout() {
                     className="text-base font-bold text-isec-dark-gray uppercase py-2 flex-grow hover:text-isec-crimson transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    {item.label}
+                    {getTranslatedLabel(item.id, item.label)}
                   </NavLink>
                   {item.columns && item.columns.length > 0 && (
                     <button 
@@ -116,7 +128,7 @@ export default function Layout() {
             ))}
             
             <Link to="/portal" className="mt-4 bg-isec-crimson text-white px-4 py-3 rounded text-center font-bold hover:bg-red-800 transition-colors tracking-widest text-[12px] uppercase w-full" onClick={() => setIsMobileMenuOpen(false)}>
-              Portal
+              {t('nav.portal')}
             </Link>
           </div>
         </div>
@@ -128,6 +140,7 @@ export default function Layout() {
       </main>
 
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 }

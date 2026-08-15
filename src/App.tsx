@@ -16,48 +16,51 @@ import Contacts from './pages/Contacts';
 import Documents from './pages/Documents';
 import Viver from './pages/Viver';
 import GenericPage from './pages/GenericPage';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          
-          <Route path="institution">
-            <Route index element={<Institution />} />
-            <Route path=":subpage" element={<Institution />} />
-          </Route>
-          
-          <Route path="departments">
-            <Route index element={<Departments />} />
-            <Route path=":subpage" element={<Departments />} />
-          </Route>
-          
-          <Route path="education">
-            <Route index element={<Education />} />
-            <Route path=":subpage" element={<Education />} />
-          </Route>
+    <LanguageProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            
+            <Route path="institution">
+              <Route index element={<Institution />} />
+              <Route path=":subpage" element={<Institution />} />
+            </Route>
+            
+            <Route path="departments">
+              <Route index element={<Departments />} />
+              <Route path=":subpage" element={<Departments />} />
+            </Route>
+            
+            <Route path="education">
+              <Route index element={<Education />} />
+              <Route path=":subpage" element={<Education />} />
+            </Route>
 
-          <Route path="student-area">
-            <Route index element={<StudentArea />} />
-            <Route path=":subpage" element={<StudentArea />} />
-          </Route>
+            <Route path="student-area">
+              <Route index element={<StudentArea />} />
+              <Route path=":subpage" element={<StudentArea />} />
+            </Route>
 
-          <Route path="academic-services">
-            <Route index element={<AcademicServices />} />
-            <Route path=":subpage" element={<AcademicServices />} />
-          </Route>
+            <Route path="academic-services">
+              <Route index element={<AcademicServices />} />
+              <Route path=":subpage" element={<AcademicServices />} />
+            </Route>
 
-          <Route path="news" element={<News />} />
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="documents" element={<Documents />} />
-          <Route path="viver" element={<Viver />} />
-          
-          {/* Catch-all for any other routes defined in the mega menu */}
-          <Route path="*" element={<GenericPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            <Route path="news" element={<News />} />
+            <Route path="contacts" element={<Contacts />} />
+            <Route path="documents" element={<Documents />} />
+            <Route path="viver" element={<Viver />} />
+            
+            {/* Catch-all for any other routes defined in the mega menu */}
+            <Route path="*" element={<GenericPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </LanguageProvider>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // Mock data for search
 const mockData = [
@@ -20,6 +21,7 @@ export default function GlobalSearch() {
   const [query, setQuery] = useState('');
   const wrapperRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const filteredResults = query.trim() === '' 
     ? [] 
@@ -55,7 +57,7 @@ export default function GlobalSearch() {
           aria-label="Pesquisar no site"
           aria-expanded={isOpen && query.trim() !== ''}
           aria-controls="search-results"
-          placeholder="Pesquisar..."
+          placeholder={t('nav.search')}
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);

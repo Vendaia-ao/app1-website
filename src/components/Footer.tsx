@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Linkedin, Instagram, Youtube, Twitter } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const { t } = useLanguage();
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,22 +18,22 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-isec-black mt-auto shrink-0 border-t-[6px] border-isec-crimson text-neutral-400">
+    <footer className="bg-isec-black mt-auto shrink-0 border-t-[6px] border-isec-crimson text-neutral-400 print:hidden">
       
       {/* Newsletter Section */}
       <div className="border-b border-neutral-800">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-10 md:py-12">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-8">
             <div className="text-center lg:text-left max-w-xl">
-              <h3 className="text-white font-bold text-2xl tracking-tight mb-2">Subscreva a nossa Newsletter</h3>
-              <p className="text-sm">Receba em primeira mão as últimas novidades, anúncios de bolsas, prazos de candidaturas e eventos da comunidade ISPTEC.</p>
+              <h3 className="text-white font-bold text-2xl tracking-tight mb-2">{t('footer.subscribe')}</h3>
+              <p className="text-sm">{t('footer.subscribeText')}</p>
             </div>
             <form onSubmit={handleSubscribe} className="w-full lg:w-auto flex flex-col sm:flex-row gap-3" aria-label="Formulário de subscrição de newsletter">
               <label htmlFor="newsletter-email" className="sr-only">Endereço de email</label>
               <input 
                 id="newsletter-email"
                 type="email" 
-                placeholder="O seu endereço de email" 
+                placeholder={t('footer.emailPlaceholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -46,10 +48,10 @@ export default function Footer() {
                 {subscribed ? (
                   <>
                     <span className="material-symbols-outlined text-[18px]" aria-hidden="true">check_circle</span>
-                    Subscrito
+                    {t('footer.subscribedBtn')}
                   </>
                 ) : (
-                  'Subscrever'
+                  t('footer.subscribeBtn')
                 )}
               </button>
             </form>
@@ -75,33 +77,33 @@ export default function Footer() {
 
           {/* Institutional Links */}
           <div className="flex flex-col gap-5">
-            <h3 id="footer-institucional" className="text-white font-bold text-lg uppercase tracking-wider text-sm border-b border-neutral-800 pb-2 inline-block">Institucional</h3>
+            <h3 id="footer-institucional" className="text-white font-bold text-lg uppercase tracking-wider text-sm border-b border-neutral-800 pb-2 inline-block">{t('footer.institutional')}</h3>
             <nav aria-labelledby="footer-institucional">
               <ul className="flex flex-col gap-3 text-sm">
-                <li><Link to="/institution/apresentacao" className="hover:text-white transition-colors">Apresentação</Link></li>
-                <li><Link to="/institution/historia" className="hover:text-white transition-colors">História</Link></li>
-                <li><Link to="/departments" className="hover:text-white transition-colors">Departamentos</Link></li>
-                <li><Link to="/academic-services" className="hover:text-white transition-colors">Serviços Académicos</Link></li>
+                <li><Link to="/institution/apresentacao" className="hover:text-white transition-colors">{t('footer.presentation')}</Link></li>
+                <li><Link to="/institution/historia" className="hover:text-white transition-colors">{t('footer.history')}</Link></li>
+                <li><Link to="/departments" className="hover:text-white transition-colors">{t('footer.departments')}</Link></li>
+                <li><Link to="/academic-services" className="hover:text-white transition-colors">{t('footer.academicServices')}</Link></li>
               </ul>
             </nav>
           </div>
 
           {/* Legal Links */}
           <div className="flex flex-col gap-5">
-            <h3 id="footer-legal" className="text-white font-bold text-lg uppercase tracking-wider text-sm border-b border-neutral-800 pb-2 inline-block">Legal</h3>
+            <h3 id="footer-legal" className="text-white font-bold text-lg uppercase tracking-wider text-sm border-b border-neutral-800 pb-2 inline-block">{t('footer.legal')}</h3>
             <nav aria-labelledby="footer-legal">
               <ul className="flex flex-col gap-3 text-sm">
-                <li><Link to="/termos-de-uso" className="hover:text-white transition-colors">Termos de Uso</Link></li>
-                <li><Link to="/politica-de-privacidade" className="hover:text-white transition-colors">Política de Privacidade</Link></li>
-                <li><Link to="/politica-de-cookies" className="hover:text-white transition-colors">Política de Cookies</Link></li>
-                <li><Link to="/acessibilidade" className="hover:text-white transition-colors">Acessibilidade</Link></li>
+                <li><Link to="/termos-de-uso" className="hover:text-white transition-colors">{t('footer.terms')}</Link></li>
+                <li><Link to="/politica-de-privacidade" className="hover:text-white transition-colors">{t('footer.privacy')}</Link></li>
+                <li><Link to="/politica-de-cookies" className="hover:text-white transition-colors">{t('footer.cookies')}</Link></li>
+                <li><Link to="/acessibilidade" className="hover:text-white transition-colors">{t('footer.accessibility')}</Link></li>
               </ul>
             </nav>
           </div>
 
           {/* Social & Community */}
           <div className="flex flex-col gap-5">
-            <h3 className="text-white font-bold text-lg uppercase tracking-wider text-sm border-b border-neutral-800 pb-2 inline-block">Comunidade</h3>
+            <h3 className="text-white font-bold text-lg uppercase tracking-wider text-sm border-b border-neutral-800 pb-2 inline-block">{t('footer.community')}</h3>
             <div className="flex gap-3">
               <a href="#" className="w-10 h-10 rounded bg-neutral-800 flex items-center justify-center hover:bg-isec-crimson hover:text-white transition-all hover:scale-105" aria-label="Facebook">
                 <Facebook size={18} />
@@ -120,14 +122,14 @@ export default function Footer() {
               </a>
             </div>
             <p className="text-xs mt-2 leading-relaxed opacity-80">
-              Acompanhe as últimas novidades, notícias e eventos da nossa comunidade académica nas redes sociais.
+              {t('footer.socialText')}
             </p>
           </div>
         </div>
 
         {/* Copyright Bar */}
         <div className="mt-16 pt-8 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium">
-          <p>© {new Date().getFullYear()} ISPTEC. Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} ISPTEC. {t('footer.rights')}</p>
           <div className="flex gap-4">
             <span className="opacity-70">Powered by ISPTEC Angola</span>
           </div>

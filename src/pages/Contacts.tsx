@@ -4,22 +4,22 @@ import headerImg from '../assets/images/angolan_campus_facade_1786829389896.jpg'
 export default function Contacts() {
   return (
     <>
-      <section className="relative py-24 px-margin-mobile md:px-margin-desktop bg-isec-dark-gray overflow-hidden">
+      <section className="relative py-24 px-margin-mobile md:px-margin-desktop bg-isec-dark-gray overflow-hidden print:bg-transparent print:py-8">
         <div 
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40"
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40 print:hidden"
           style={{ backgroundImage: `url('${headerImg}')` }}
         />
         <div className="max-w-container-max mx-auto text-center md:text-left relative z-10">
-          <h1 className="text-headline-display font-headline-display font-bold text-white mb-4 drop-shadow-md">Contactos</h1>
-          <p className="text-body-lg font-body-lg text-neutral-200 max-w-2xl drop-shadow">
+          <h1 className="text-headline-display font-headline-display font-bold text-white mb-4 drop-shadow-md print:text-black print:drop-shadow-none">Contactos</h1>
+          <p className="text-body-lg font-body-lg text-neutral-200 max-w-2xl drop-shadow print:text-neutral-800 print:drop-shadow-none">
             Estamos à sua disposição para qualquer esclarecimento. Encontre os contactos dos diversos serviços ou visite as nossas instalações.
           </p>
         </div>
       </section>
 
-      <section className="py-16 md:py-24 px-margin-mobile md:px-margin-desktop">
+      <section className="py-16 md:py-24 px-margin-mobile md:px-margin-desktop print:py-8">
         <div className="max-w-container-max mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 print:grid-cols-1 gap-12 lg:gap-24">
             
             <div className="space-y-12">
               <div>
@@ -77,7 +77,7 @@ export default function Contacts() {
               </div>
             </div>
 
-            <div>
+            <div className="print:hidden">
               <div className="bg-surface-container-lowest border border-isec-silver rounded-lg shadow-sm p-6 md:p-8">
                 <h2 className="text-headline-md font-headline-md text-isec-dark-gray mb-6">Formulário de Contacto</h2>
                 <form className="space-y-6" aria-label="Formulário de Contacto" onSubmit={(e) => e.preventDefault()}>
@@ -122,7 +122,7 @@ export default function Contacts() {
         </div>
       </section>
       
-      <section className="h-[400px] w-full bg-surface-container">
+      <section className="h-[400px] w-full bg-surface-container print:hidden">
         <iframe 
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3941.670560943956!2d13.1818!3d-8.9197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sISPTEC!5e0!3m2!1spt-PT!2sao!4v1655000000000!5m2!1spt-PT!2sao" 
           width="100%" 

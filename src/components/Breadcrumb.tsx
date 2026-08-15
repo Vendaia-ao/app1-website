@@ -1,4 +1,5 @@
 import { useLocation, Link } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const routeMap: Record<string, string> = {
   'institution': 'A Instituição',
@@ -14,6 +15,7 @@ const routeMap: Record<string, string> = {
 export default function Breadcrumb() {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
+  const { t } = useLanguage();
 
   // Do not show breadcrumbs on the home page
   if (pathnames.length === 0) {
@@ -21,11 +23,11 @@ export default function Breadcrumb() {
   }
 
   return (
-    <div className="bg-surface-container-lowest border-b border-isec-silver py-3 px-margin-mobile md:px-margin-desktop w-full shrink-0">
+    <div className="bg-surface-container-lowest border-b border-isec-silver py-3 px-margin-mobile md:px-margin-desktop w-full shrink-0 print:hidden">
       <div className="max-w-container-max mx-auto flex items-center text-[10px] font-bold text-secondary uppercase tracking-wider">
         <Link to="/" className="hover:text-isec-crimson transition-colors flex items-center gap-1">
           <span className="material-symbols-outlined text-[14px]">home</span>
-          Home
+          {t('common.home')}
         </Link>
         {pathnames.map((value, index) => {
           const to = `/${pathnames.slice(0, index + 1).join('/')}`;
