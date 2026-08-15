@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
+import headerImg from '../assets/images/angolan_campus_facade_1786829389896.jpg';
 
 export default function Contacts() {
   return (
     <>
-      <section className="bg-surface-container py-16 px-margin-mobile md:px-margin-desktop">
-        <div className="max-w-container-max mx-auto text-center md:text-left">
-          <h1 className="text-headline-display font-headline-display font-bold text-isec-dark-gray mb-4">Contactos</h1>
-          <p className="text-body-lg font-body-lg text-secondary max-w-2xl">
+      <section className="relative py-24 px-margin-mobile md:px-margin-desktop bg-isec-dark-gray overflow-hidden">
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40"
+          style={{ backgroundImage: `url('${headerImg}')` }}
+        />
+        <div className="max-w-container-max mx-auto text-center md:text-left relative z-10">
+          <h1 className="text-headline-display font-headline-display font-bold text-white mb-4 drop-shadow-md">Contactos</h1>
+          <p className="text-body-lg font-body-lg text-neutral-200 max-w-2xl drop-shadow">
             Estamos à sua disposição para qualquer esclarecimento. Encontre os contactos dos diversos serviços ou visite as nossas instalações.
           </p>
         </div>
@@ -75,21 +80,21 @@ export default function Contacts() {
             <div>
               <div className="bg-surface-container-lowest border border-isec-silver rounded-lg shadow-sm p-6 md:p-8">
                 <h2 className="text-headline-md font-headline-md text-isec-dark-gray mb-6">Formulário de Contacto</h2>
-                <form className="space-y-6">
+                <form className="space-y-6" aria-label="Formulário de Contacto" onSubmit={(e) => e.preventDefault()}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">Nome Completo *</label>
-                      <input type="text" id="name" required className="w-full h-12 px-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors" />
+                      <input type="text" id="name" required aria-required="true" className="w-full h-12 px-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors" />
                     </div>
                     <div>
                       <label htmlFor="email" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">Email *</label>
-                      <input type="email" id="email" required className="w-full h-12 px-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors" />
+                      <input type="email" id="email" required aria-required="true" className="w-full h-12 px-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors" />
                     </div>
                   </div>
                   
                   <div>
                     <label htmlFor="subject" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">Assunto *</label>
-                    <select id="subject" required className="w-full h-12 px-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors bg-white">
+                    <select id="subject" required aria-required="true" className="w-full h-12 px-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors bg-white">
                       <option value="">Selecione um assunto</option>
                       <option value="candidaturas">Candidaturas / Acesso</option>
                       <option value="academicos">Serviços Académicos</option>
@@ -100,12 +105,12 @@ export default function Contacts() {
 
                   <div>
                     <label htmlFor="message" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">Mensagem *</label>
-                    <textarea id="message" required rows={5} className="w-full p-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors resize-none"></textarea>
+                    <textarea id="message" required aria-required="true" rows={5} className="w-full p-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors resize-none"></textarea>
                   </div>
                   
                   <div className="pt-2">
-                    <button type="button" className="w-full md:w-auto bg-isec-crimson text-white px-8 py-3 rounded text-label-md font-label-md hover:bg-primary transition-colors flex items-center justify-center gap-2">
-                      <span className="material-symbols-outlined text-[20px]">send</span>
+                    <button type="submit" className="w-full md:w-auto bg-isec-crimson text-white px-8 py-3 rounded text-label-md font-label-md hover:bg-primary transition-colors flex items-center justify-center gap-2">
+                      <span className="material-symbols-outlined text-[20px]" aria-hidden="true">send</span>
                       Enviar Mensagem
                     </button>
                   </div>

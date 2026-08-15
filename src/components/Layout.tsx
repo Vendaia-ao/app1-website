@@ -45,9 +45,11 @@ export default function Layout() {
             <button 
               onClick={toggleMobileMenu}
               className="text-isec-dark-gray p-2 active:opacity-80 flex items-center justify-center"
-              aria-label="Menu"
+              aria-label="Alternar menu móvel"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
-              <span className="material-symbols-outlined">{isMobileMenuOpen ? 'close' : 'menu'}</span>
+              <span className="material-symbols-outlined" aria-hidden="true">{isMobileMenuOpen ? 'close' : 'menu'}</span>
             </button>
           </div>
         </div>
@@ -55,7 +57,7 @@ export default function Layout() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[64px] z-40 bg-white overflow-y-auto border-t border-isec-silver animate-in slide-in-from-top-2 duration-200">
+        <div id="mobile-menu" role="navigation" aria-label="Menu principal móvel" className="lg:hidden fixed inset-0 top-[64px] z-40 bg-white overflow-y-auto border-t border-isec-silver animate-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col p-6 gap-2">
             {mainNavigation.map((item) => (
               <div key={item.id} className="flex flex-col border-b border-isec-silver last:border-0 pb-2 mb-2">
@@ -71,8 +73,11 @@ export default function Layout() {
                     <button 
                       className="p-2 text-isec-dark-gray"
                       onClick={() => toggleMobileSubmenu(item.id)}
+                      aria-label={`Expandir submenu de ${item.label}`}
+                      aria-expanded={expandedMobileMenu === item.id}
+                      aria-controls={`mobile-submenu-${item.id}`}
                     >
-                      <span className="material-symbols-outlined">
+                      <span className="material-symbols-outlined" aria-hidden="true">
                         {expandedMobileMenu === item.id ? 'expand_less' : 'expand_more'}
                       </span>
                     </button>
@@ -81,7 +86,7 @@ export default function Layout() {
                 
                 {/* Mobile Submenu Expansion */}
                 {expandedMobileMenu === item.id && item.columns && (
-                  <div className="flex flex-col pl-4 pb-2 gap-4 mt-2 animate-in slide-in-from-top-1">
+                  <div id={`mobile-submenu-${item.id}`} className="flex flex-col pl-4 pb-2 gap-4 mt-2 animate-in slide-in-from-top-1">
                     {item.columns.map((column, colIdx) => (
                       <div key={colIdx} className="flex flex-col gap-4">
                         {column.map((section, secIdx) => (

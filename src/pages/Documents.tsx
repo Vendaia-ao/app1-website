@@ -14,14 +14,15 @@ export default function Documents() {
         <div className="max-w-container-max mx-auto">
           <div className="flex flex-col md:flex-row gap-4 mb-8">
             <div className="relative flex-grow">
-              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-isec-dark-gray">search</span>
+              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-isec-dark-gray" aria-hidden="true">search</span>
               <input 
                 type="text" 
+                aria-label="Pesquisar documentos"
                 placeholder="Pesquisar documentos..." 
                 className="w-full h-12 pl-12 pr-4 bg-surface-container-lowest border border-isec-silver rounded focus:outline-none focus:border-isec-crimson transition-colors"
               />
             </div>
-            <select className="h-12 px-4 bg-surface-container-lowest border border-isec-silver rounded focus:outline-none focus:border-isec-crimson transition-colors md:w-64">
+            <select aria-label="Filtrar por categoria" className="h-12 px-4 bg-surface-container-lowest border border-isec-silver rounded focus:outline-none focus:border-isec-crimson transition-colors md:w-64">
               <option value="all">Todas as Categorias</option>
               <option value="estatutos">Estatutos</option>
               <option value="regulamentos">Regulamentos Internos</option>
@@ -112,19 +113,19 @@ export default function Documents() {
             </div>
           </div>
           
-          <div className="mt-8 flex justify-center">
+          <nav aria-label="Navegação de páginas" className="mt-8 flex justify-center">
             <div className="flex items-center gap-2">
-              <button disabled className="w-10 h-10 flex items-center justify-center rounded border border-isec-silver text-isec-silver cursor-not-allowed">
-                <span className="material-symbols-outlined">chevron_left</span>
+              <button disabled aria-label="Página anterior" className="w-10 h-10 flex items-center justify-center rounded border border-isec-silver text-isec-silver cursor-not-allowed">
+                <span className="material-symbols-outlined" aria-hidden="true">chevron_left</span>
               </button>
-              <button className="w-10 h-10 flex items-center justify-center rounded border border-isec-crimson bg-isec-crimson text-white font-label-sm">1</button>
-              <button className="w-10 h-10 flex items-center justify-center rounded border border-isec-silver text-isec-dark-gray hover:bg-surface-container transition-colors font-label-sm">2</button>
-              <button className="w-10 h-10 flex items-center justify-center rounded border border-isec-silver text-isec-dark-gray hover:bg-surface-container transition-colors font-label-sm">3</button>
-              <button className="w-10 h-10 flex items-center justify-center rounded border border-isec-silver text-isec-dark-gray hover:bg-surface-container transition-colors">
-                <span className="material-symbols-outlined">chevron_right</span>
+              <button aria-label="Página 1" aria-current="page" className="w-10 h-10 flex items-center justify-center rounded border border-isec-crimson bg-isec-crimson text-white font-label-sm">1</button>
+              <button aria-label="Página 2" className="w-10 h-10 flex items-center justify-center rounded border border-isec-silver text-isec-dark-gray hover:bg-surface-container transition-colors font-label-sm">2</button>
+              <button aria-label="Página 3" className="w-10 h-10 flex items-center justify-center rounded border border-isec-silver text-isec-dark-gray hover:bg-surface-container transition-colors font-label-sm">3</button>
+              <button aria-label="Próxima página" className="w-10 h-10 flex items-center justify-center rounded border border-isec-silver text-isec-dark-gray hover:bg-surface-container transition-colors">
+                <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
               </button>
             </div>
-          </div>
+          </nav>
         </div>
       </section>
     </>

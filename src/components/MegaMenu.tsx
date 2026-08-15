@@ -20,7 +20,7 @@ export default function MegaMenu() {
   };
 
   return (
-    <nav className="h-full flex items-center" onMouseLeave={handleMouseLeave}>
+    <nav className="h-full flex items-center" aria-label="Navegação Principal" onMouseLeave={handleMouseLeave}>
       <ul className="flex items-center h-full m-0 p-0 list-none">
         {mainNavigation.map((item: MenuItem) => (
           <li
@@ -30,6 +30,8 @@ export default function MegaMenu() {
           >
             <NavLink
               to={item.path}
+              aria-haspopup={item.columns && item.columns.length > 0 ? 'true' : undefined}
+              aria-expanded={item.columns && item.columns.length > 0 ? activeMenu === item.id : undefined}
               className={({ isActive }) =>
                 `px-3 lg:px-4 h-full flex items-center text-xs lg:text-sm font-bold uppercase tracking-wider transition-colors border-b-4 ${
                   isActive || activeMenu === item.id
@@ -45,6 +47,8 @@ export default function MegaMenu() {
               <div 
                 className="absolute top-full left-0 w-full bg-white shadow-2xl border-t border-isec-silver z-50 animate-in slide-in-from-top-2 duration-200"
                 style={{ minHeight: '300px' }}
+                role="region"
+                aria-label={`Submenu de ${item.label}`}
               >
                 <div className="max-w-[1280px] mx-auto px-10 py-10 flex flex-wrap gap-x-12 gap-y-10">
                   {item.columns.map((column, colIdx) => (

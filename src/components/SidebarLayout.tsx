@@ -35,22 +35,24 @@ export default function SidebarLayout({ title, heroImageUrl, items, basePath, ch
       <div className="max-w-[1280px] mx-auto w-full px-10 py-12 flex flex-col lg:flex-row gap-12 flex-grow">
         
         {/* Sidebar */}
-        <aside className="w-full lg:w-[280px] shrink-0 flex flex-col gap-2">
-          {items.map((item) => (
-            <NavLink
-              key={item.path}
-              to={`${basePath}/${item.path}`}
-              className={({ isActive }) => 
-                `px-6 py-4 rounded text-sm text-center lg:text-left transition-all ${
-                  isActive 
-                    ? 'bg-isec-crimson text-white shadow-lg font-bold'
-                    : 'bg-neutral-100 text-isec-dark-gray hover:bg-neutral-200'
-                }`
-              }
-            >
-              {item.label}
-            </NavLink>
-          ))}
+        <aside aria-label="Menu de navegação lateral" className="w-full lg:w-[280px] shrink-0 flex flex-col gap-2">
+          <nav className="flex flex-col gap-2" aria-label="Navegação secundária">
+            {items.map((item) => (
+              <NavLink
+                key={item.path}
+                to={`${basePath}/${item.path}`}
+                className={({ isActive }) => 
+                  `px-6 py-4 rounded text-sm text-center lg:text-left transition-all ${
+                    isActive 
+                      ? 'bg-isec-crimson text-white shadow-lg font-bold'
+                      : 'bg-neutral-100 text-isec-dark-gray hover:bg-neutral-200'
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
         </aside>
 
         {/* Dynamic Content */}

@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import event1Img from '../assets/images/event_welcome_1786829896018.jpg';
+import event2Img from '../assets/images/event_exams_1786829910143.jpg';
 
 const EVENTS = [
   {
@@ -6,28 +8,32 @@ const EVENTS = [
     month: 'SET',
     title: 'Acolhimento de Novos Estudantes',
     description: 'Início do 1º Semestre e sessão de boas-vindas.',
-    link: '/student-area/calendario'
+    link: '/student-area/calendario',
+    image: event1Img,
   },
   {
     day: '04',
     month: 'JAN',
     title: 'Época Normal de Exames',
     description: 'Início da época normal de avaliação do 1º Semestre.',
-    link: '/student-area/calendario'
+    link: '/student-area/calendario',
+    image: event2Img,
   },
   {
     day: '22',
     month: 'FEV',
     title: 'Início do 2º Semestre',
     description: 'Arranque das atividades letivas do novo semestre.',
-    link: '/student-area/calendario'
+    link: '/student-area/calendario',
+    image: event1Img,
   },
   {
     day: '15',
     month: 'JUN',
     title: 'Época de Recurso',
     description: 'Início da época de recurso e avaliações finais.',
-    link: '/student-area/calendario'
+    link: '/student-area/calendario',
+    image: event2Img,
   }
 ];
 
@@ -46,7 +52,7 @@ export default function UpcomingEvents() {
         {EVENTS.map((evt, idx) => (
           <Link key={idx} to={evt.link} className="bg-white border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded overflow-hidden flex flex-col group cursor-pointer">
             <div className="w-full h-40 overflow-hidden relative bg-neutral-100 flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-4xl text-neutral-300">image</span>
+              <img src={evt.image} alt={evt.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="flex flex-grow">
               {/* Date Block */}

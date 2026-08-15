@@ -45,13 +45,16 @@ export default function GlobalSearch() {
   };
 
   return (
-    <div ref={wrapperRef} className="relative hidden md:block ml-4">
+    <div ref={wrapperRef} className="relative hidden md:block ml-4" role="search" aria-label="Pesquisa global">
       <div className="relative">
-        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-isec-dark-gray/50 text-[18px]">
+        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-isec-dark-gray/50 text-[18px]" aria-hidden="true">
           search
         </span>
         <input
           type="text"
+          aria-label="Pesquisar no site"
+          aria-expanded={isOpen && query.trim() !== ''}
+          aria-controls="search-results"
           placeholder="Pesquisar..."
           value={query}
           onChange={(e) => {
@@ -64,7 +67,7 @@ export default function GlobalSearch() {
       </div>
 
       {isOpen && query.trim() !== '' && (
-        <div className="absolute top-full mt-2 right-0 w-80 max-h-96 overflow-y-auto bg-white border border-isec-silver rounded-lg shadow-xl z-50 py-2">
+        <div id="search-results" className="absolute top-full mt-2 right-0 w-80 max-h-96 overflow-y-auto bg-white border border-isec-silver rounded-lg shadow-xl z-50 py-2">
           {filteredResults.length > 0 ? (
             <div className="flex flex-col">
               {filteredResults.map((result) => (

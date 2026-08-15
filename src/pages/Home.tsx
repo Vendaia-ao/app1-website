@@ -4,6 +4,12 @@ import NewsCarousel from '../components/NewsCarousel';
 import UpcomingEvents from '../components/UpcomingEvents';
 import slide1Img from '../assets/images/angolan_students_campus_1786829352418.jpg';
 import slide3Img from '../assets/images/angolan_engineers_1786829365741.jpg';
+import TestimonialsCarousel from '../components/TestimonialsCarousel';
+import FAQSection from '../components/FAQSection';
+import of1Img from '../assets/images/oferta_licenciatura_1786829921348.jpg';
+import of2Img from '../assets/images/oferta_posgraduacao_1786829933176.jpg';
+import of3Img from '../assets/images/news_business_banking_1786829870480.jpg';
+import of4Img from '../assets/images/event_welcome_1786829896018.jpg';
 
 const HERO_SLIDES = [
   {
@@ -175,12 +181,14 @@ export default function Home() {
 
       <UpcomingEvents />
 
-      <section className="px-10 gap-gutter pb-12 pt-4 max-w-[1280px] w-full mx-auto">
+      <TestimonialsCarousel />
+
+      <section className="px-10 gap-gutter pb-12 pt-12 max-w-[1280px] w-full mx-auto">
         <h2 className="text-xl font-bold uppercase tracking-tight text-isec-dark-gray border-b border-isec-silver pb-2 mb-6">Oferta Formativa</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Link to="/education" className="bg-white border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded overflow-hidden flex flex-col group cursor-pointer">
             <div className="w-full h-40 overflow-hidden relative bg-neutral-100 flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-4xl text-neutral-300">image</span>
+              <img src={of1Img} alt="Licenciaturas" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="p-6 flex flex-col items-center justify-center text-center flex-grow">
               <span className="material-symbols-outlined text-isec-crimson mb-3 text-3xl">school</span>
@@ -190,7 +198,7 @@ export default function Home() {
 
           <Link to="/education" className="bg-white border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded overflow-hidden flex flex-col group cursor-pointer">
             <div className="w-full h-40 overflow-hidden relative bg-neutral-100 flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-4xl text-neutral-300">image</span>
+              <img src={of2Img} alt="Pós-Graduações" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="p-6 flex flex-col items-center justify-center text-center flex-grow">
               <span className="material-symbols-outlined text-isec-crimson mb-3 text-3xl">account_balance</span>
@@ -200,7 +208,7 @@ export default function Home() {
 
           <Link to="/education" className="bg-white border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded overflow-hidden flex flex-col group cursor-pointer">
             <div className="w-full h-40 overflow-hidden relative bg-neutral-100 flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-4xl text-neutral-300">image</span>
+              <img src={of3Img} alt="Mestrados" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="p-6 flex flex-col items-center justify-center text-center flex-grow">
               <span className="material-symbols-outlined text-isec-crimson mb-3 text-3xl">business_center</span>
@@ -210,15 +218,17 @@ export default function Home() {
 
           <Link to="/education" className="bg-white border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded overflow-hidden flex flex-col group cursor-pointer">
             <div className="w-full h-40 overflow-hidden relative bg-neutral-100 flex items-center justify-center shrink-0">
-              <span className="material-symbols-outlined text-4xl text-neutral-300">image</span>
+              <img src={of4Img} alt="Cursos de Curta Duração" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="p-6 flex flex-col items-center justify-center text-center flex-grow">
               <span className="material-symbols-outlined text-isec-crimson mb-3 text-3xl">thumb_up</span>
-              <h3 className="text-sm font-bold text-isec-dark-gray group-hover:text-isec-crimson transition-colors uppercase">CTeSP</h3>
+              <h3 className="text-sm font-bold text-isec-dark-gray group-hover:text-isec-crimson transition-colors uppercase">Cursos Curta Duração</h3>
             </div>
           </Link>
         </div>
       </section>
+
+      <FAQSection />
     </>
   );
 }

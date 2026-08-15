@@ -1,4 +1,9 @@
 import { Link } from 'react-router-dom';
+import news1Img from '../assets/images/news_tech_fair_1786829846776.jpg';
+import news2Img from '../assets/images/news_research_engineers_1786829859024.jpg';
+import news3Img from '../assets/images/news_business_banking_1786829870480.jpg';
+import news4Img from '../assets/images/news_ai_lab_1786829882706.jpg';
+import of2Img from '../assets/images/oferta_posgraduacao_1786829933176.jpg';
 
 export default function News() {
   return (
@@ -19,7 +24,7 @@ export default function News() {
             <div className="lg:col-span-8 rounded-lg overflow-hidden relative min-h-[400px] flex items-end group cursor-pointer">
               <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAAkIs0NxgkQ87ptJMKFyQ_Z8H0q0Nx790Z2ez-JbbjilzjYXdPBCw5ROexf64FStj2U3c6bOBq5f-FH1m8MSOfEW-kOhT-LKdKWQUodW1kfWh2DZu1t-1YsAJgDhuDmcESw_8tSQMawfkPh8SCqY_9tLCwXva7efwaF6AV1hj-mnZIcNyOxIFfDqcWYzyfJ8_KP1_kOkRw8Bi_mZL1QbS73XVlH-4z7rBHcfNn3jX2qEpbop25bVAtRg')" }}
+                style={{ backgroundImage: `url('${news1Img}')` }}
               ></div>
               <div className="absolute inset-0 bg-gradient-to-t from-isec-black via-isec-black/60 to-transparent"></div>
               
@@ -40,7 +45,7 @@ export default function News() {
               
               <Link to="/news" className="group flex gap-4 items-start">
                 <div className="w-24 h-24 shrink-0 rounded overflow-hidden">
-                  <img src="https://placehold.co/100x100/eeeeee/333333?text=Imagem" alt="Thumbnail" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src={news4Img} alt="Thumbnail" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div>
                   <h4 className="text-body-md font-body-md font-semibold text-isec-dark-gray group-hover:text-isec-crimson transition-colors line-clamp-2 mb-1">
@@ -52,7 +57,7 @@ export default function News() {
               
               <Link to="/news" className="group flex gap-4 items-start">
                 <div className="w-24 h-24 shrink-0 rounded overflow-hidden">
-                  <img src="https://placehold.co/100x100/eeeeee/333333?text=Imagem" alt="Thumbnail" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src={of2Img} alt="Thumbnail" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div>
                   <h4 className="text-body-md font-body-md font-semibold text-isec-dark-gray group-hover:text-isec-crimson transition-colors line-clamp-2 mb-1">
@@ -64,7 +69,7 @@ export default function News() {
 
               <Link to="/news" className="group flex gap-4 items-start">
                 <div className="w-24 h-24 shrink-0 rounded overflow-hidden">
-                  <img src="https://placehold.co/100x100/eeeeee/333333?text=Imagem" alt="Thumbnail" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src={news2Img} alt="Thumbnail" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div>
                   <h4 className="text-body-md font-body-md font-semibold text-isec-dark-gray group-hover:text-isec-crimson transition-colors line-clamp-2 mb-1">
@@ -85,7 +90,7 @@ export default function News() {
             <article className="bg-surface-container-lowest border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded-lg overflow-hidden flex flex-col group">
               <div className="w-full h-48 overflow-hidden relative">
                 <div className="absolute inset-0 bg-surface-container flex items-center justify-center">
-                  <span className="material-symbols-outlined text-4xl text-isec-silver">image</span>
+                  <img src={news1Img} alt="Institucional" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
               </div>
               <div className="p-6 flex flex-col flex-grow">
@@ -108,7 +113,7 @@ export default function News() {
             <article className="bg-surface-container-lowest border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded-lg overflow-hidden flex flex-col group">
               <div className="w-full h-48 overflow-hidden relative">
                 <div className="absolute inset-0 bg-surface-container flex items-center justify-center">
-                  <span className="material-symbols-outlined text-4xl text-isec-silver">image</span>
+                  <img src={news2Img} alt="Investigação" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
               </div>
               <div className="p-6 flex flex-col flex-grow">
@@ -131,7 +136,7 @@ export default function News() {
             <article className="bg-surface-container-lowest border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded-lg overflow-hidden flex flex-col group">
               <div className="w-full h-48 overflow-hidden relative">
                 <div className="absolute inset-0 bg-surface-container flex items-center justify-center">
-                  <span className="material-symbols-outlined text-4xl text-isec-silver">image</span>
+                  <img src={news3Img} alt="Empregabilidade" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
               </div>
               <div className="p-6 flex flex-col flex-grow">
