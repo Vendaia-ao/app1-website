@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
-const FAQ_DATA = [
+const FAQ_DATA_PT = [
   {
     category: 'Admissões',
     questions: [
@@ -78,11 +79,92 @@ const FAQ_DATA = [
   }
 ];
 
+const FAQ_DATA_EN = [
+  {
+    category: 'Admissions',
+    questions: [
+      {
+        id: 'a1',
+        q: 'What are the admission methods at ISPTEC?',
+        a: 'Candidates can enter through the General Entrance Exam, by Transfer/Change of Course, or under the International Student status. The general exam focuses on the core subjects of the intended course (e.g., Mathematics, Physics, etc.).'
+      },
+      {
+        id: 'a2',
+        q: 'When do registrations for the entrance exams start?',
+        a: 'Generally, registrations for the new academic year take place in July and August. We recommend that you always follow the news portal and the updated academic calendar in our Academic Services section.'
+      },
+      {
+        id: 'a3',
+        q: 'Does ISPTEC offer scholarships?',
+        a: 'Yes. ISPTEC, often in partnership with entities of excellence such as Sonangol, offers academic merit scholarship programs to reward and support candidates with the best performances in the entrance exam and throughout the course.'
+      },
+      {
+        id: 'a4',
+        q: 'How do entrance exams for Engineering courses work?',
+        a: 'For Engineering courses, entrance exams predominantly focus on Mathematics and Physics. A syllabus is provided in advance to allow for timely preparation of candidates.'
+      }
+    ]
+  },
+  {
+    category: 'Courses',
+    questions: [
+      {
+        id: 'c1',
+        q: 'Are ISPTEC courses recognized by the Ministry (MESCTI)?',
+        a: 'Absolutely. All our higher education courses (Bachelor\'s, Master\'s, and Postgraduate) are duly legalized and accredited by the Ministry of Higher Education, Science, Technology and Innovation.'
+      },
+      {
+        id: 'c2',
+        q: 'What is the normal duration of a Bachelor\'s degree?',
+        a: 'Bachelor\'s degree courses at ISPTEC have a standard duration of 4 to 5 academic years (8 to 10 semesters), depending on the requirements of the curriculum of each department (Engineering or Applied Social Sciences).'
+      },
+      {
+        id: 'c3',
+        q: 'Are classes theoretical or do they have a strong practical component?',
+        a: 'ISPTEC stands out precisely for its practical component. We adopt a mixed teaching model supported by cutting-edge research laboratories, to ensure that students get "hands-on" and solve real industry challenges.'
+      },
+      {
+        id: 'c4',
+        q: 'Can I continue my studies with a Master\'s degree at ISPTEC?',
+        a: 'Yes, we have postgraduate and master\'s programs (such as Business Management MBA, Petroleum Engineering, among others) designed to deepen skills after completing the bachelor\'s degree.'
+      }
+    ]
+  },
+  {
+    category: 'Student Life',
+    questions: [
+      {
+        id: 'v1',
+        q: 'Where is the Main Campus located?',
+        a: 'Our campus of excellence is located in Talatona, Luanda. It is an area designed from scratch to offer the best academic, technological, sports and leisure infrastructure in Angola.'
+      },
+      {
+        id: 'v2',
+        q: 'Is there a Student Association (AE)?',
+        a: 'Yes! The ISPTEC Student Association (AEISPTEC) is a highly dynamic organization that organizes cultural and sporting events, technological lectures and integration weeks, representing the interests of all students.'
+      },
+      {
+        id: 'v3',
+        q: 'What are the main support services available on Campus?',
+        a: 'Our students have access to an impressive central library, specialty laboratories with recent technology, cafeterias, canteens, a sports complex, high-speed Wi-Fi internet, and secure parking.'
+      },
+      {
+        id: 'v4',
+        q: 'How does the University support employability?',
+        a: 'We have a dedicated career office that establishes protocols with giants in the Angolan corporate sector. We promote regular job fairs on campus, summer internship programs, and seminars to prepare for the job market.'
+      }
+    ]
+  }
+];
+
 export default function FAQSection() {
+  const { language } = useLanguage();
+  const FAQ_DATA = language === 'en' ? FAQ_DATA_EN : FAQ_DATA_PT;
+  
   const [activeCategory, setActiveCategory] = useState(FAQ_DATA[0].category);
   const [openQuestion, setOpenQuestion] = useState<string | null>(FAQ_DATA[0].questions[0].id);
 
-  const activeData = FAQ_DATA.find(cat => cat.category === activeCategory);
+  const activeData = FAQ_DATA.find(cat => cat.category === activeCategory) || FAQ_DATA[0];
 
   const toggleQuestion = (id: string) => {
     setOpenQuestion(openQuestion === id ? null : id);
@@ -92,9 +174,13 @@ export default function FAQSection() {
     <section className="bg-surface-container-lowest py-20 border-t border-isec-silver">
       <div className="px-10 max-w-[1280px] w-full mx-auto">
         <div className="text-center mb-14">
-          <h2 className="text-3xl font-bold uppercase tracking-tight text-isec-dark-gray mb-4">Perguntas Frequentes (FAQ)</h2>
+          <h2 className="text-3xl font-bold uppercase tracking-tight text-isec-dark-gray mb-4">
+            {language === 'en' ? 'Frequently Asked Questions (FAQ)' : 'Perguntas Frequentes (FAQ)'}
+          </h2>
           <p className="text-secondary max-w-2xl mx-auto text-lg">
-            Encontre respostas rápidas sobre candidaturas, cursos e o dia a dia da comunidade estudantil do ISPTEC.
+            {language === 'en' 
+              ? 'Find quick answers about applications, courses and the day-to-day life of the ISPTEC student community.'
+              : 'Encontre respostas rápidas sobre candidaturas, cursos e o dia a dia da comunidade estudantil do ISPTEC.'}
           </p>
         </div>
 
@@ -102,7 +188,7 @@ export default function FAQSection() {
           {/* Categories Sidebar */}
           <div 
             role="tablist" 
-            aria-label="Categorias de Perguntas Frequentes"
+            aria-label={language === 'en' ? "FAQ Categories" : "Categorias de Perguntas Frequentes"}
             className="w-full lg:w-1/4 shrink-0 flex flex-row lg:flex-col gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden snap-x"
           >
             {FAQ_DATA.map((cat) => (

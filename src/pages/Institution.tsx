@@ -1,6 +1,7 @@
 import { useParams, Navigate } from 'react-router-dom';
 import SidebarLayout from '../components/SidebarLayout';
 import heroImg from '../assets/images/angolan_campus_facade_1786829389896.jpg';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const SIDEBAR_ITEMS = [
   { label: 'Apresentação', path: 'apresentacao' },
@@ -14,22 +15,28 @@ const SIDEBAR_ITEMS = [
 
 export default function Institution() {
   const { subpage } = useParams();
+  const { t, tMenu } = useLanguage();
 
   // If no subpage is specified in the URL, redirect to the first item
   if (!subpage) {
     return <Navigate to="/institution/apresentacao" replace />;
   }
 
+  const translatedItems = SIDEBAR_ITEMS.map(item => ({
+    ...item,
+    label: tMenu(item.label)
+  }));
+
   return (
     <SidebarLayout 
       title="Instituto Superior Politécnico de Tecnologias e Ciências"
       basePath="/institution"
-      items={SIDEBAR_ITEMS}
+      items={translatedItems}
       heroImageUrl={heroImg}
     >
       {subpage === 'apresentacao' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">O Instituto</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('institution.institute', 'O Instituto')}</h2>
           <div className="prose prose-neutral max-w-none text-secondary space-y-4">
             <p>
               O ISPTEC tem como missão a criação, transmissão e difusão de cultura, ciência e tecnologia, cabendo-lhe ministrar uma formação de nível superior para o exercício de atividades profissionais no domínio da engenharia e ciências aplicadas, e promover o desenvolvimento da região em que se insere, orientada para a prossecução dos seguintes objetivos:
@@ -49,7 +56,7 @@ export default function Institution() {
 
       {subpage === 'estatutos' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">Estatutos e Regulamentos</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('institution.statutes', 'Estatutos e Regulamentos')}</h2>
           <p className="text-secondary mb-8">
             Consulte os documentos fundamentais que regem a organização, o funcionamento e a missão do ISPTEC.
           </p>
@@ -84,7 +91,7 @@ export default function Institution() {
 
       {subpage === 'factos' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">Factos e Números</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('institution.facts', 'Factos e Números')}</h2>
           <p className="text-secondary mb-8">
             O ISPTEC em números: um reflexo do nosso compromisso com a excelência académica, a inovação e o desenvolvimento de Angola.
           </p>
@@ -125,7 +132,7 @@ export default function Institution() {
 
       {subpage === 'historia' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">A Nossa História</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('institution.history', 'A Nossa História')}</h2>
           <div className="prose prose-neutral max-w-none text-secondary mb-10">
             <p>
               O Instituto Superior Politécnico de Tecnologias e Ciências (ISPTEC) nasceu da visão estratégica de criar uma instituição de ensino superior de referência em Angola, capaz de formar quadros de excelência para impulsionar o desenvolvimento tecnológico e industrial do país. Promovido pela Sonangol E.P., o ISPTEC rapidamente se estabeleceu como um marco no panorama académico nacional.
@@ -166,7 +173,7 @@ export default function Institution() {
 
       {subpage === 'oficial' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">Informação Oficial</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('institution.official', 'Informação Oficial')}</h2>
           <p className="text-secondary mb-8">
             Aceda aos documentos institucionais, planos estratégicos e relatórios de atividades que atestam a transparência e o rumo do ISPTEC.
           </p>
@@ -196,7 +203,7 @@ export default function Institution() {
 
       {subpage === 'organizacao' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">Organização e Governação</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('institution.org', 'Organização e Governação')}</h2>
           <p className="text-secondary mb-8">
             A estrutura orgânica do ISPTEC foi desenhada para assegurar uma gestão rigorosa, focada na excelência académica e na ligação às necessidades do país.
           </p>
@@ -247,7 +254,7 @@ export default function Institution() {
 
       {subpage === 'id' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">Investigação e Desenvolvimento (I&D)</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('institution.rnd', 'Investigação e Desenvolvimento (I&D)')}</h2>
           <div className="prose prose-neutral max-w-none text-secondary mb-8">
             <p>
               A Investigação, Desenvolvimento e Inovação (I&D+i) constituem pilares estratégicos do ISPTEC. A nossa missão vai além do ensino: criamos soluções científicas para problemas reais da indústria, da economia e da sociedade angolana.

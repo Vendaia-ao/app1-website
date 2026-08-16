@@ -70,3 +70,83 @@
   --text-label-sm--line-height: 12px;
   --text-label-sm--font-weight: 700;
 }
+
+/* Custom Print Styles for Official Documents and Course Pages */
+@media print {
+  @page {
+    margin: 1.5cm;
+  }
+
+  body {
+    background-color: white !important;
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* Hide navigation, footers, buttons, and elements explicitly marked to hide in print */
+  nav, footer, header, button, .print\:hidden {
+    display: none !important;
+  }
+
+  /* Ensure the main content spans the full width of the page */
+  main, section, article, .max-w-container-max, .w-full {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Strip background colors and shadows from all elements to save ink */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Ensure headings remain attached to their paragraphs */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    color: black !important;
+    margin-top: 24pt !important;
+    margin-bottom: 8pt !important;
+  }
+
+  /* Prevent isolated lines of text at the top or bottom of pages */
+  p, h2, h3, li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Style tables clearly for print */
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    margin-bottom: 20px !important;
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  th, td {
+    border: 1px solid #ccc !important;
+    padding: 8px 12px !important;
+    color: black !important;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f4f4f5 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Prevent images from being cut across pages */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid;
+  }
+}

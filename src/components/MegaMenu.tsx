@@ -6,7 +6,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 export default function MegaMenu() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { t } = useLanguage();
+  const { language, t, tMenu } = useLanguage();
 
   const handleMouseEnter = (id: string) => {
     if (hideTimeoutRef.current) {
@@ -28,7 +28,7 @@ export default function MegaMenu() {
   };
 
   return (
-    <nav className="h-full flex items-center" aria-label="Navegação Principal" onMouseLeave={handleMouseLeave}>
+    <nav className="h-full flex items-center" aria-label={language === 'en' ? "Main Navigation" : "Navegação Principal"} onMouseLeave={handleMouseLeave}>
       <ul className="flex items-center h-full m-0 p-0 list-none">
         {mainNavigation.map((item: MenuItem) => (
           <li
@@ -56,7 +56,7 @@ export default function MegaMenu() {
                 className="absolute top-full left-0 w-full bg-white shadow-2xl border-t border-isec-silver z-50 animate-in slide-in-from-top-2 duration-200"
                 style={{ minHeight: '300px' }}
                 role="region"
-                aria-label={`Submenu de ${item.label}`}
+                aria-label={language === 'en' ? `${item.label} submenu` : `Submenu de ${item.label}`}
               >
                 <div className="max-w-[1280px] mx-auto px-10 py-10 flex flex-wrap gap-x-12 gap-y-10">
                   {item.columns.map((column, colIdx) => (
@@ -65,7 +65,7 @@ export default function MegaMenu() {
                         <div key={secIdx} className="flex flex-col gap-3">
                           {section.title && (
                             <h3 className="text-lg text-isec-dark-gray mb-1">
-                              {section.title}
+                              {tMenu(section.title)}
                             </h3>
                           )}
                           <ul className="flex flex-col gap-2.5">
@@ -76,7 +76,7 @@ export default function MegaMenu() {
                                   className="text-[13px] text-secondary hover:text-isec-crimson hover:underline transition-colors"
                                   onClick={() => setActiveMenu(null)}
                                 >
-                                  {link.label}
+                                  {tMenu(link.label)}
                                 </Link>
                               </li>
                             ))}

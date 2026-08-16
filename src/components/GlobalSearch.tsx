@@ -21,7 +21,7 @@ export default function GlobalSearch() {
   const [query, setQuery] = useState('');
   const wrapperRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   const filteredResults = query.trim() === '' 
     ? [] 
@@ -47,14 +47,14 @@ export default function GlobalSearch() {
   };
 
   return (
-    <div ref={wrapperRef} className="relative hidden md:block ml-4" role="search" aria-label="Pesquisa global">
+    <div ref={wrapperRef} className="relative hidden md:block ml-4" role="search" aria-label={language === 'en' ? "Global search" : "Pesquisa global"}>
       <div className="relative">
         <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-isec-dark-gray/50 text-[18px]" aria-hidden="true">
           search
         </span>
         <input
           type="text"
-          aria-label="Pesquisar no site"
+          aria-label={language === 'en' ? "Search site" : "Pesquisar no site"}
           aria-expanded={isOpen && query.trim() !== ''}
           aria-controls="search-results"
           placeholder={t('nav.search')}

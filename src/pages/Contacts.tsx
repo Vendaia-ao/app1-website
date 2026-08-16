@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 import headerImg from '../assets/images/angolan_campus_facade_1786829389896.jpg';
 
 export default function Contacts() {
+  const { t } = useLanguage();
+
   return (
     <>
       <section className="relative py-24 px-margin-mobile md:px-margin-desktop bg-isec-dark-gray overflow-hidden print:bg-transparent print:py-8">
@@ -10,9 +13,9 @@ export default function Contacts() {
           style={{ backgroundImage: `url('${headerImg}')` }}
         />
         <div className="max-w-container-max mx-auto text-center md:text-left relative z-10">
-          <h1 className="text-headline-display font-headline-display font-bold text-white mb-4 drop-shadow-md print:text-black print:drop-shadow-none">Contactos</h1>
+          <h1 className="text-headline-display font-headline-display font-bold text-white mb-4 drop-shadow-md print:text-black print:drop-shadow-none">{t('contacts.title')}</h1>
           <p className="text-body-lg font-body-lg text-neutral-200 max-w-2xl drop-shadow print:text-neutral-800 print:drop-shadow-none">
-            Estamos à sua disposição para qualquer esclarecimento. Encontre os contactos dos diversos serviços ou visite as nossas instalações.
+            {t('contacts.subtitle')}
           </p>
         </div>
       </section>
@@ -23,35 +26,28 @@ export default function Contacts() {
             
             <div className="space-y-12">
               <div>
-                <h2 className="text-headline-md font-headline-md text-isec-dark-gray mb-6 border-b border-isec-silver pb-2">Informações Gerais</h2>
+                <h2 className="text-headline-md font-headline-md text-isec-dark-gray mb-6 border-b border-isec-silver pb-2">{t('contacts.generalInfo')}</h2>
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
                     <span className="material-symbols-outlined text-isec-crimson mt-1">location_on</span>
                     <div>
-                      <h3 className="text-label-md font-label-md font-bold text-isec-dark-gray mb-1">Morada</h3>
-                      <p className="text-body-md font-body-md text-secondary">
-                        Av. Luanda Sul, Rua Lateral Via S10<br/>
-                        Talatona<br/>
-                        Luanda, Angola
-                      </p>
+                      <h3 className="text-label-md font-label-md font-bold text-isec-dark-gray mb-1">{t('contacts.addressTitle')}</h3>
+                      <p className="text-body-md font-body-md text-secondary" dangerouslySetInnerHTML={{ __html: t('contacts.addressValue') as string }}></p>
                     </div>
                   </div>
                   
                   <div className="flex items-start gap-4">
                     <span className="material-symbols-outlined text-isec-crimson mt-1">call</span>
                     <div>
-                      <h3 className="text-label-md font-label-md font-bold text-isec-dark-gray mb-1">Telefone</h3>
-                      <p className="text-body-md font-body-md text-secondary">
-                        Tel: (+244) 226 690 323<br/>
-                        Tlm: (+244) 923 123 456
-                      </p>
+                      <h3 className="text-label-md font-label-md font-bold text-isec-dark-gray mb-1">{t('contacts.phoneTitle')}</h3>
+                      <p className="text-body-md font-body-md text-secondary" dangerouslySetInnerHTML={{ __html: t('contacts.phoneValue') as string }}></p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
                     <span className="material-symbols-outlined text-isec-crimson mt-1">mail</span>
                     <div>
-                      <h3 className="text-label-md font-label-md font-bold text-isec-dark-gray mb-1">Email Geral</h3>
+                      <h3 className="text-label-md font-label-md font-bold text-isec-dark-gray mb-1">{t('contacts.emailTitle')}</h3>
                       <p className="text-body-md font-body-md text-secondary">
                         <a href="mailto:geral@isptec.co.ao" className="hover:text-isec-crimson transition-colors">geral@isptec.co.ao</a>
                       </p>
@@ -61,16 +57,13 @@ export default function Contacts() {
               </div>
 
               <div>
-                <h2 className="text-headline-md font-headline-md text-isec-dark-gray mb-6 border-b border-isec-silver pb-2">Serviços Académicos</h2>
+                <h2 className="text-headline-md font-headline-md text-isec-dark-gray mb-6 border-b border-isec-silver pb-2">{t('contacts.academicServices')}</h2>
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
                     <span className="material-symbols-outlined text-isec-crimson mt-1">school</span>
                     <div>
-                      <h3 className="text-label-md font-label-md font-bold text-isec-dark-gray mb-1">Assuntos de Alunos</h3>
-                      <p className="text-body-md font-body-md text-secondary">
-                        Email: <a href="mailto:academica@isptec.co.ao" className="hover:text-isec-crimson transition-colors">academica@isptec.co.ao</a><br/>
-                        Atendimento: 2ª a 6ª (08h00-16h30)
-                      </p>
+                      <h3 className="text-label-md font-label-md font-bold text-isec-dark-gray mb-1">{t('contacts.studentAffairs')}</h3>
+                      <p className="text-body-md font-body-md text-secondary" dangerouslySetInnerHTML={{ __html: t('contacts.studentAffairsValue') as string }}></p>
                     </div>
                   </div>
                 </div>
@@ -79,39 +72,39 @@ export default function Contacts() {
 
             <div className="print:hidden">
               <div className="bg-surface-container-lowest border border-isec-silver rounded-lg shadow-sm p-6 md:p-8">
-                <h2 className="text-headline-md font-headline-md text-isec-dark-gray mb-6">Formulário de Contacto</h2>
-                <form className="space-y-6" aria-label="Formulário de Contacto" onSubmit={(e) => e.preventDefault()}>
+                <h2 className="text-headline-md font-headline-md text-isec-dark-gray mb-6">{t('contacts.formTitle')}</h2>
+                <form className="space-y-6" aria-label={t('contacts.formTitle') as string} onSubmit={(e) => e.preventDefault()}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">Nome Completo *</label>
+                      <label htmlFor="name" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">{t('contacts.formName')}</label>
                       <input type="text" id="name" required aria-required="true" className="w-full h-12 px-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors" />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">Email *</label>
+                      <label htmlFor="email" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">{t('contacts.formEmail')}</label>
                       <input type="email" id="email" required aria-required="true" className="w-full h-12 px-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors" />
                     </div>
                   </div>
                   
                   <div>
-                    <label htmlFor="subject" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">Assunto *</label>
+                    <label htmlFor="subject" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">{t('contacts.formSubject')}</label>
                     <select id="subject" required aria-required="true" className="w-full h-12 px-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors bg-white">
-                      <option value="">Selecione um assunto</option>
-                      <option value="candidaturas">Candidaturas / Acesso</option>
-                      <option value="academicos">Serviços Académicos</option>
-                      <option value="tecnico">Suporte Técnico / Informática</option>
-                      <option value="outros">Outros</option>
+                      <option value="">{t('contacts.formSubjectSelect')}</option>
+                      <option value="candidaturas">{t('contacts.formSubject1')}</option>
+                      <option value="academicos">{t('contacts.formSubject2')}</option>
+                      <option value="tecnico">{t('contacts.formSubject3')}</option>
+                      <option value="outros">{t('contacts.formSubject4')}</option>
                     </select>
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">Mensagem *</label>
+                    <label htmlFor="message" className="block text-label-sm font-label-sm font-bold text-isec-dark-gray mb-2">{t('contacts.formMessage')}</label>
                     <textarea id="message" required aria-required="true" rows={5} className="w-full p-4 border border-isec-silver rounded focus:outline-none focus:border-isec-crimson focus:ring-1 focus:ring-isec-crimson transition-colors resize-none"></textarea>
                   </div>
                   
                   <div className="pt-2">
                     <button type="submit" className="w-full md:w-auto bg-isec-crimson text-white px-8 py-3 rounded text-label-md font-label-md hover:bg-primary transition-colors flex items-center justify-center gap-2">
                       <span className="material-symbols-outlined text-[20px]" aria-hidden="true">send</span>
-                      Enviar Mensagem
+                      {t('contacts.formSubmit')}
                     </button>
                   </div>
                 </form>

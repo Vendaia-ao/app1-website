@@ -4,8 +4,9 @@ import news1Img from '../assets/images/news_tech_fair_1786829846776.jpg';
 import news2Img from '../assets/images/news_research_engineers_1786829859024.jpg';
 import news3Img from '../assets/images/news_business_banking_1786829870480.jpg';
 import news4Img from '../assets/images/news_ai_lab_1786829882706.jpg';
+import { useLanguage } from '../contexts/LanguageContext';
 
-const MOCK_NEWS = [
+const MOCK_NEWS_PT = [
   {
     id: 1,
     category: 'Institucional',
@@ -62,7 +63,66 @@ const MOCK_NEWS = [
   }
 ];
 
+const MOCK_NEWS_EN = [
+  {
+    id: 1,
+    category: 'Institutional',
+    title: 'ISPTEC HOSTS LUANDA TECHNOLOGY AND INNOVATION FAIR',
+    excerpt: 'The Talatona campus was the main stage for over 50 technology companies to present their latest solutions...',
+    date: '08-01-2026',
+    path: '/news',
+    image: news1Img,
+  },
+  {
+    id: 2,
+    category: 'Research',
+    title: 'ENGINEERING STUDENTS DEVELOP NEW SOLUTION FOR THE OIL SECTOR',
+    excerpt: 'A research program focused on optimizing sustainable extraction, developed in partnership with Sonangol...',
+    date: '08-05-2026',
+    path: '/news',
+    image: news2Img,
+  },
+  {
+    id: 3,
+    category: 'Employability',
+    title: 'ISPTEC GRADUATES WITH 100% EMPLOYABILITY IN BANKING AND TELECOMMUNICATIONS',
+    excerpt: 'Computer Engineering and Management courses continue to reveal a record professional integration rate in Angola...',
+    date: '08-05-2026',
+    path: '/news',
+    image: news3Img,
+  },
+  {
+    id: 4,
+    category: 'Innovation',
+    title: 'ISPTEC INAUGURATES NEW APPLIED ARTIFICIAL INTELLIGENCE LABORATORY',
+    excerpt: 'The new research space will allow students to develop projects in partnership with technology companies in Luanda...',
+    date: '08-08-2026',
+    path: '/news',
+    image: news4Img,
+  },
+  {
+    id: 5,
+    category: 'Events',
+    title: 'INTERNATIONAL CONFERENCE ON SOCIAL SCIENCES AND ENGINEERING BRINGS EXPERTS TOGETHER',
+    excerpt: 'The annual event brings researchers to ISPTEC to discuss new trends in the country\'s economic and industrial development...',
+    date: '08-10-2026',
+    path: '/news',
+    image: news3Img,
+  },
+  {
+    id: 6,
+    category: 'Internationalization',
+    title: 'NEW PARTNERSHIPS WITH INTERNATIONAL UNIVERSITIES EXPAND MOBILITY PROGRAMS',
+    excerpt: 'ISPTEC students now have access to exchanges at prestigious universities in Brazil, Portugal and South Africa...',
+    date: '08-11-2026',
+    path: '/news',
+    image: news1Img,
+  }
+];
+
 export default function NewsCarousel() {
+  const { language } = useLanguage();
+  const MOCK_NEWS = language === 'en' ? MOCK_NEWS_EN : MOCK_NEWS_PT;
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -78,19 +138,21 @@ export default function NewsCarousel() {
   return (
     <section className="px-10 gap-gutter py-8 max-w-[1280px] w-full mx-auto">
       <div className="flex justify-between items-end border-b border-isec-silver pb-2 mb-6">
-        <h2 className="text-xl font-bold uppercase tracking-tight text-isec-dark-gray">LATEST NEWS</h2>
+        <h2 className="text-xl font-bold uppercase tracking-tight text-isec-dark-gray">
+          {language === 'en' ? 'LATEST NEWS' : 'ÚLTIMAS NOTÍCIAS'}
+        </h2>
         <div className="flex gap-2">
           <button 
             onClick={() => scroll('left')}
             className="w-8 h-8 rounded-full border border-isec-silver flex items-center justify-center text-isec-dark-gray hover:bg-isec-crimson hover:text-white hover:border-isec-crimson transition-colors"
-            aria-label="Notícias Anteriores"
+            aria-label={language === 'en' ? 'Previous News' : 'Notícias Anteriores'}
           >
             <span className="material-symbols-outlined text-[18px]" aria-hidden="true">chevron_left</span>
           </button>
           <button 
             onClick={() => scroll('right')}
             className="w-8 h-8 rounded-full border border-isec-silver flex items-center justify-center text-isec-dark-gray hover:bg-isec-crimson hover:text-white hover:border-isec-crimson transition-colors"
-            aria-label="Próximas Notícias"
+            aria-label={language === 'en' ? 'Next News' : 'Próximas Notícias'}
           >
             <span className="material-symbols-outlined text-[18px]" aria-hidden="true">chevron_right</span>
           </button>
@@ -102,7 +164,7 @@ export default function NewsCarousel() {
         className="flex gap-6 overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden pb-4"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         aria-live="polite"
-        aria-label="Carrossel de Notícias"
+        aria-label={language === 'en' ? 'News Carousel' : 'Carrossel de Notícias'}
       >
         {MOCK_NEWS.map((news) => (
           <Link 
@@ -125,7 +187,7 @@ export default function NewsCarousel() {
                 {news.excerpt}
               </p>
               <div className="text-xs md:text-sm font-bold text-isec-crimson flex items-center gap-1 mt-auto">
-                Ler artigo <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                {language === 'en' ? 'Read article' : 'Ler artigo'} <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
               </div>
             </div>
           </Link>

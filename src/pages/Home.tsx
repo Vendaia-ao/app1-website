@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 import NewsCarousel from '../components/NewsCarousel';
 import UpcomingEvents from '../components/UpcomingEvents';
 import slide1Img from '../assets/images/angolan_students_campus_1786829352418.jpg';
@@ -11,35 +12,36 @@ import of2Img from '../assets/images/oferta_posgraduacao_1786829933176.jpg';
 import of3Img from '../assets/images/news_business_banking_1786829870480.jpg';
 import of4Img from '../assets/images/event_welcome_1786829896018.jpg';
 
-const HERO_SLIDES = [
-  {
-    id: 1,
-    image: slide1Img,
-    title: "Exames de Acesso 2026/2027",
-    subtitle: "Garante o teu futuro no ISPTEC",
-    cta: "Saber mais",
-    link: "/education"
-  },
-  {
-    id: 2,
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2800&q=80",
-    title: "Inovação e Tecnologia",
-    subtitle: "A melhor infraestrutura de laboratórios em Angola",
-    cta: "Conhecer o Campus",
-    link: "/institution"
-  },
-  {
-    id: 3,
-    image: slide3Img,
-    title: "Formação de Excelência",
-    subtitle: "Formamos os líderes de amanhã em Engenharias e Ciências",
-    cta: "Explorar",
-    link: "/institution"
-  }
-];
-
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { language, t } = useLanguage();
+
+  const HERO_SLIDES = [
+    {
+      id: 1,
+      image: slide1Img,
+      title: t('home.hero.title1', 'Exames de Acesso 2026/2027'),
+      subtitle: t('home.hero.subtitle1', 'Garante o teu futuro no ISPTEC'),
+      cta: t('home.hero.cta1', 'Saber mais'),
+      link: "/education"
+    },
+    {
+      id: 2,
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2800&q=80",
+      title: t('home.hero.title2', 'Inovação e Tecnologia'),
+      subtitle: t('home.hero.subtitle2', 'A melhor infraestrutura de laboratórios em Angola'),
+      cta: t('home.hero.cta2', 'Conhecer o Campus'),
+      link: "/institution"
+    },
+    {
+      id: 3,
+      image: slide3Img,
+      title: t('home.hero.title3', 'Formação de Excelência'),
+      subtitle: t('home.hero.subtitle3', 'Formamos os líderes de amanhã em Engenharias e Ciências'),
+      cta: t('home.hero.cta3', 'Explorar'),
+      link: "/institution"
+    }
+  ];
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
@@ -105,14 +107,14 @@ export default function Home() {
         <button 
           onClick={prevSlide}
           className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-30 text-white/50 hover:text-white transition-colors p-2"
-          aria-label="Anterior"
+          aria-label={language === 'en' ? "Previous slide" : "Anterior"}
         >
           <span className="material-symbols-outlined text-4xl md:text-6xl font-light">chevron_left</span>
         </button>
         <button 
           onClick={nextSlide}
           className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-30 text-white/50 hover:text-white transition-colors p-2"
-          aria-label="Próximo"
+          aria-label={language === 'en' ? "Next slide" : "Próximo"}
         >
           <span className="material-symbols-outlined text-4xl md:text-6xl font-light">chevron_right</span>
         </button>
@@ -126,7 +128,7 @@ export default function Home() {
               className={`h-1.5 transition-all duration-300 ${
                 index === currentSlide ? 'w-10 bg-white' : 'w-6 bg-white/40 hover:bg-white/60'
               }`}
-              aria-label={`Ir para banner ${index + 1}`}
+              aria-label={language === 'en' ? `Go to slide ${index + 1}` : `Ir para banner ${index + 1}`}
             />
           ))}
         </div>
@@ -137,19 +139,19 @@ export default function Home() {
             to="/academic-services/avisos" 
             className="bg-white border-l-[6px] border-isec-crimson py-4 px-6 lg:px-10 text-isec-crimson font-bold shadow-2xl hover:bg-neutral-50 transition-colors uppercase tracking-wider text-xs lg:text-sm flex items-center min-w-[240px] lg:min-w-[280px]"
           >
-            Informações | Avisos
+            {t('home.hero.quick1', 'Informações | Avisos')}
           </Link>
           <Link 
             to="/student-area/calendario" 
             className="bg-white border-l-[6px] border-isec-crimson py-4 px-6 lg:px-10 text-isec-crimson font-bold shadow-2xl hover:bg-neutral-50 transition-colors uppercase tracking-wider text-xs lg:text-sm flex items-center min-w-[240px] lg:min-w-[280px]"
           >
-            Calendários | Horários
+            {t('home.hero.quick2', 'Calendários | Horários')}
           </Link>
           <Link 
             to="/academic-services/emolumentos" 
             className="bg-white border-l-[6px] border-isec-crimson py-4 px-6 lg:px-10 text-isec-crimson font-bold shadow-2xl hover:bg-neutral-50 transition-colors uppercase tracking-wider text-xs lg:text-sm flex items-center min-w-[240px] lg:min-w-[280px]"
           >
-            Propinas | Emolumentos
+            {t('home.hero.quick3', 'Propinas | Emolumentos')}
           </Link>
         </div>
       </section>
@@ -158,20 +160,20 @@ export default function Home() {
         <div className="max-w-[1280px] w-full mx-auto px-10 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-isec-silver py-4 md:py-0">
           <div className="px-4 text-center py-2 md:py-0 flex items-center justify-center md:justify-start">
             <span className="text-isec-crimson font-bold text-lg">85%</span>
-            <p className="text-[10px] uppercase font-bold text-secondary ml-2 text-left leading-tight">
-              TAXA DE EMPREGABILIDADE<br/>NO SETOR CORPORATIVO
+            <p className="text-[10px] uppercase font-bold text-secondary ml-2 text-left leading-tight whitespace-pre-line">
+              {t('home.stats.employability', 'TAXA DE EMPREGABILIDADE\nNO SETOR CORPORATIVO')}
             </p>
           </div>
           <div className="px-4 text-center py-2 md:py-0 flex items-center justify-center md:justify-start">
             <span className="text-isec-crimson font-bold text-lg">95%</span>
-            <p className="text-[10px] uppercase font-bold text-secondary ml-2 text-left leading-tight">
-              DOS DIPLOMADOS INSERIDOS<br/>NO MERCADO DE TRABALHO
+            <p className="text-[10px] uppercase font-bold text-secondary ml-2 text-left leading-tight whitespace-pre-line">
+              {t('home.stats.market', 'DOS DIPLOMADOS INSERIDOS\nNO MERCADO DE TRABALHO')}
             </p>
           </div>
           <div className="px-4 text-center py-2 md:py-0 flex items-center justify-center md:justify-start">
             <span className="text-isec-crimson font-bold text-lg">90%</span>
-            <p className="text-[10px] uppercase font-bold text-secondary ml-2 text-left leading-tight">
-              DE ALUNOS EMPREGADOS<br/>NA SUA ÁREA DE FORMAÇÃO
+            <p className="text-[10px] uppercase font-bold text-secondary ml-2 text-left leading-tight whitespace-pre-line">
+              {t('home.stats.area', 'DE ALUNOS EMPREGADOS\nNA SUA ÁREA DE FORMAÇÃO')}
             </p>
           </div>
         </div>
@@ -184,7 +186,9 @@ export default function Home() {
       <TestimonialsCarousel />
 
       <section className="px-10 gap-gutter pb-12 pt-12 max-w-[1280px] w-full mx-auto">
-        <h2 className="text-xl font-bold uppercase tracking-tight text-isec-dark-gray border-b border-isec-silver pb-2 mb-6">Oferta Formativa</h2>
+        <h2 className="text-xl font-bold uppercase tracking-tight text-isec-dark-gray border-b border-isec-silver pb-2 mb-6">
+          {t('home.offer.title', 'Oferta Formativa')}
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Link to="/education" className="bg-white border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded overflow-hidden flex flex-col group cursor-pointer">
             <div className="w-full h-40 overflow-hidden relative bg-neutral-100 flex items-center justify-center shrink-0">
@@ -192,37 +196,34 @@ export default function Home() {
             </div>
             <div className="p-6 flex flex-col items-center justify-center text-center flex-grow">
               <span className="material-symbols-outlined text-isec-crimson mb-3 text-3xl">school</span>
-              <h3 className="text-sm font-bold text-isec-dark-gray group-hover:text-isec-crimson transition-colors uppercase">Licenciaturas</h3>
+              <h3 className="text-sm font-bold text-isec-dark-gray group-hover:text-isec-crimson transition-colors uppercase">{t('home.offer.bachelor', 'Licenciaturas')}</h3>
             </div>
           </Link>
-
           <Link to="/education" className="bg-white border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded overflow-hidden flex flex-col group cursor-pointer">
             <div className="w-full h-40 overflow-hidden relative bg-neutral-100 flex items-center justify-center shrink-0">
               <img src={of2Img} alt="Pós-Graduações" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="p-6 flex flex-col items-center justify-center text-center flex-grow">
               <span className="material-symbols-outlined text-isec-crimson mb-3 text-3xl">account_balance</span>
-              <h3 className="text-sm font-bold text-isec-dark-gray group-hover:text-isec-crimson transition-colors uppercase">Pós-Graduações</h3>
+              <h3 className="text-sm font-bold text-isec-dark-gray group-hover:text-isec-crimson transition-colors uppercase">{t('home.offer.postgrad', 'Pós-Graduações')}</h3>
             </div>
           </Link>
-
           <Link to="/education" className="bg-white border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded overflow-hidden flex flex-col group cursor-pointer">
             <div className="w-full h-40 overflow-hidden relative bg-neutral-100 flex items-center justify-center shrink-0">
               <img src={of3Img} alt="Mestrados" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="p-6 flex flex-col items-center justify-center text-center flex-grow">
               <span className="material-symbols-outlined text-isec-crimson mb-3 text-3xl">business_center</span>
-              <h3 className="text-sm font-bold text-isec-dark-gray group-hover:text-isec-crimson transition-colors uppercase">Mestrados</h3>
+              <h3 className="text-sm font-bold text-isec-dark-gray group-hover:text-isec-crimson transition-colors uppercase">{t('home.offer.master', 'Mestrados')}</h3>
             </div>
           </Link>
-
           <Link to="/education" className="bg-white border border-isec-silver hover:border-isec-crimson transition-all duration-300 hover:-translate-y-1 hover:shadow-lg rounded overflow-hidden flex flex-col group cursor-pointer">
             <div className="w-full h-40 overflow-hidden relative bg-neutral-100 flex items-center justify-center shrink-0">
               <img src={of4Img} alt="Cursos de Curta Duração" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             </div>
             <div className="p-6 flex flex-col items-center justify-center text-center flex-grow">
               <span className="material-symbols-outlined text-isec-crimson mb-3 text-3xl">thumb_up</span>
-              <h3 className="text-sm font-bold text-isec-dark-gray group-hover:text-isec-crimson transition-colors uppercase">Cursos Curta Duração</h3>
+              <h3 className="text-sm font-bold text-isec-dark-gray group-hover:text-isec-crimson transition-colors uppercase">{t('home.offer.short', 'Cursos Curta Duração')}</h3>
             </div>
           </Link>
         </div>

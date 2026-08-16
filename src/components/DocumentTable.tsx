@@ -1,3 +1,5 @@
+import { useLanguage } from '../contexts/LanguageContext';
+
 interface Document {
   name: string;
   updatedAt: string;
@@ -11,6 +13,7 @@ interface DocumentTableProps {
 }
 
 export default function DocumentTable({ title, documents }: DocumentTableProps) {
+  const { language } = useLanguage();
   return (
     <div className="mb-10">
       {title && <h3 className="text-xl font-light italic text-isec-dark-gray mb-4">{title}</h3>}
@@ -18,10 +21,10 @@ export default function DocumentTable({ title, documents }: DocumentTableProps) 
         <table className="w-full text-left border-collapse min-w-[600px]">
           <thead>
             <tr className="border-b border-isec-silver text-sm text-isec-dark-gray">
-              <th className="py-3 font-normal">Documento</th>
-              <th className="py-3 font-normal w-32">Actualizado</th>
-              <th className="py-3 font-normal w-24">Tamanho</th>
-              <th className="py-3 font-normal w-16 text-center">Tipo</th>
+              <th className="py-3 font-normal">{language === 'en' ? 'Document' : 'Documento'}</th>
+              <th className="py-3 font-normal w-32">{language === 'en' ? 'Updated' : 'Actualizado'}</th>
+              <th className="py-3 font-normal w-24">{language === 'en' ? 'Size' : 'Tamanho'}</th>
+              <th className="py-3 font-normal w-16 text-center">{language === 'en' ? 'Type' : 'Tipo'}</th>
             </tr>
           </thead>
           <tbody>

@@ -1,6 +1,7 @@
 import { useParams, Navigate } from 'react-router-dom';
 import SidebarLayout from '../components/SidebarLayout';
 import heroImg from '../assets/images/angolan_students_campus_1786829352418.jpg';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const SIDEBAR_ITEMS = [
   { label: 'Mestrados', path: 'mestrados' },
@@ -11,7 +12,7 @@ const SIDEBAR_ITEMS = [
   { label: 'Formas de Ingresso', path: 'ingresso' },
 ];
 
-const LICENCIATURAS = [
+const LICENCIATURAS_PT = [
   { name: 'Engenharia Informática', type: 'Licenciatura', duration: '8 Semestres', ects: 240, regime: 'Diurno / Pós-Laboral', icon: 'computer' },
   { name: 'Engenharia Eletrotécnica', type: 'Licenciatura', duration: '8 Semestres', ects: 240, regime: 'Diurno / Pós-Laboral', icon: 'bolt' },
   { name: 'Engenharia Mecânica', type: 'Licenciatura', duration: '8 Semestres', ects: 240, regime: 'Diurno', icon: 'precision_manufacturing' },
@@ -21,22 +22,50 @@ const LICENCIATURAS = [
   { name: 'Economia', type: 'Licenciatura', duration: '8 Semestres', ects: 240, regime: 'Diurno', icon: 'account_balance' },
 ];
 
-const MESTRADOS = [
+const LICENCIATURAS_EN = [
+  { name: 'Computer Engineering', type: 'Bachelor', duration: '8 Semesters', ects: 240, regime: 'Day / Evening', icon: 'computer' },
+  { name: 'Electrical Engineering', type: 'Bachelor', duration: '8 Semesters', ects: 240, regime: 'Day / Evening', icon: 'bolt' },
+  { name: 'Mechanical Engineering', type: 'Bachelor', duration: '8 Semesters', ects: 240, regime: 'Day', icon: 'precision_manufacturing' },
+  { name: 'Chemical Engineering', type: 'Bachelor', duration: '8 Semesters', ects: 240, regime: 'Day', icon: 'science' },
+  { name: 'Civil Engineering', type: 'Bachelor', duration: '8 Semesters', ects: 240, regime: 'Day', icon: 'architecture' },
+  { name: 'Business Management', type: 'Bachelor', duration: '8 Semesters', ects: 240, regime: 'Day / Evening', icon: 'bar_chart' },
+  { name: 'Economics', type: 'Bachelor', duration: '8 Semesters', ects: 240, regime: 'Day', icon: 'account_balance' },
+];
+
+const MESTRADOS_PT = [
   { name: 'Mestrado em Engenharia de Petróleos', type: 'Mestrado', duration: '4 Semestres', ects: 120, regime: 'Pós-Laboral', icon: 'oil_barrel' },
   { name: 'Mestrado em Ciência de Dados', type: 'Mestrado', duration: '4 Semestres', ects: 120, regime: 'Pós-Laboral', icon: 'analytics' },
   { name: 'Mestrado em Gestão de Empresas (MBA)', type: 'Mestrado', duration: '4 Semestres', ects: 120, regime: 'Pós-Laboral', icon: 'business_center' },
 ];
 
-const POS_GRADUACOES = [
+const MESTRADOS_EN = [
+  { name: 'Master in Petroleum Engineering', type: 'Master', duration: '4 Semesters', ects: 120, regime: 'Evening', icon: 'oil_barrel' },
+  { name: 'Master in Data Science', type: 'Master', duration: '4 Semesters', ects: 120, regime: 'Evening', icon: 'analytics' },
+  { name: 'Master in Business Management (MBA)', type: 'Master', duration: '4 Semesters', ects: 120, regime: 'Evening', icon: 'business_center' },
+];
+
+const POS_GRADUACOES_PT = [
   { name: 'Pós-Graduação em Gestão de Projetos', type: 'Pós-Graduação', duration: '2 Semestres', ects: 60, regime: 'Pós-Laboral', icon: 'task' },
   { name: 'Pós-Graduação em Energias Renováveis', type: 'Pós-Graduação', duration: '2 Semestres', ects: 60, regime: 'Pós-Laboral', icon: 'solar_power' },
   { name: 'Pós-Graduação em Cibersegurança', type: 'Pós-Graduação', duration: '2 Semestres', ects: 60, regime: 'Pós-Laboral', icon: 'security' },
 ];
 
-const CURTA_DURACAO = [
+const POS_GRADUACOES_EN = [
+  { name: 'Postgraduate in Project Management', type: 'Postgraduate', duration: '2 Semesters', ects: 60, regime: 'Evening', icon: 'task' },
+  { name: 'Postgraduate in Renewable Energy', type: 'Postgraduate', duration: '2 Semesters', ects: 60, regime: 'Evening', icon: 'solar_power' },
+  { name: 'Postgraduate in Cybersecurity', type: 'Postgraduate', duration: '2 Semesters', ects: 60, regime: 'Evening', icon: 'security' },
+];
+
+const CURTA_DURACAO_PT = [
   { name: 'Python para Análise de Dados', type: 'Curta Duração', duration: '40 Horas', regime: 'Pós-Laboral / Online', icon: 'terminal' },
   { name: 'Automação Industrial e PLC', type: 'Curta Duração', duration: '60 Horas', regime: 'Presencial', icon: 'engineering' },
   { name: 'Gestão Financeira para Não Financeiros', type: 'Curta Duração', duration: '30 Horas', regime: 'Pós-Laboral', icon: 'wallet' },
+];
+
+const CURTA_DURACAO_EN = [
+  { name: 'Python for Data Analysis', type: 'Short Course', duration: '40 Hours', regime: 'Evening / Online', icon: 'terminal' },
+  { name: 'Industrial Automation and PLC', type: 'Short Course', duration: '60 Hours', regime: 'In-person', icon: 'engineering' },
+  { name: 'Financial Management for Non-Financials', type: 'Short Course', duration: '30 Hours', regime: 'Evening', icon: 'wallet' },
 ];
 
 // Helper to render course cards
@@ -77,6 +106,12 @@ const CourseGrid = ({ courses }: { courses: any[] }) => (
 
 export default function Education() {
   const { subpage } = useParams();
+  const { language, tMenu, t } = useLanguage();
+  
+  const LICENCIATURAS = language === 'en' ? LICENCIATURAS_EN : LICENCIATURAS_PT;
+  const MESTRADOS = language === 'en' ? MESTRADOS_EN : MESTRADOS_PT;
+  const POS_GRADUACOES = language === 'en' ? POS_GRADUACOES_EN : POS_GRADUACOES_PT;
+  const CURTA_DURACAO = language === 'en' ? CURTA_DURACAO_EN : CURTA_DURACAO_PT;
 
   if (!subpage) {
     return <Navigate to="/education/licenciaturas" replace />;
@@ -84,16 +119,16 @@ export default function Education() {
 
   return (
     <SidebarLayout 
-      title="Estudar no ISPTEC"
+      title={language === 'en' ? 'Study at ISPTEC' : 'Estudar no ISPTEC'}
       basePath="/education"
       items={SIDEBAR_ITEMS}
       heroImageUrl={heroImg}
     >
       {subpage === 'licenciaturas' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">Licenciaturas</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('education.bachelorTitle')}</h2>
           <p className="text-secondary mb-10">
-            Os cursos de licenciatura do ISPTEC são concebidos para formar profissionais de excelência, com uma forte componente prática e alinhamento com as necessidades do mercado de trabalho angolano. A duração típica é de 8 semestres (240 ECTS).
+            {t('education.bachelorDesc')}
           </p>
           <CourseGrid courses={LICENCIATURAS} />
         </div>
@@ -101,9 +136,9 @@ export default function Education() {
 
       {subpage === 'mestrados' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">Mestrados</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('education.masterTitle')}</h2>
           <p className="text-secondary mb-10">
-            Os programas de Mestrado do ISPTEC focam-se na especialização avançada e investigação aplicada, preparando líderes para os setores mais críticos da economia, como energia, tecnologia e gestão estratégica corporativa.
+            {t('education.masterDesc')}
           </p>
           <CourseGrid courses={MESTRADOS} />
         </div>
@@ -111,9 +146,9 @@ export default function Education() {
 
       {subpage === 'pos-graduacoes' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">Pós-Graduações</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('education.postgradTitle')}</h2>
           <p className="text-secondary mb-10">
-            Cursos altamente especializados, de duração anual, desenhados para a atualização de competências profissionais em áreas emergentes e de elevada procura no mercado de trabalho.
+            {t('education.postgradDesc')}
           </p>
           <CourseGrid courses={POS_GRADUACOES} />
         </div>
@@ -121,9 +156,9 @@ export default function Education() {
 
       {subpage === 'curta-duracao' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">Cursos de Curta Duração</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('education.shortTitle')}</h2>
           <p className="text-secondary mb-10">
-            Formações intensivas, focadas na aquisição rápida de competências técnicas específicas (upskilling). Ideais para estudantes e profissionais que pretendem um diferencial rápido no currículo.
+            {t('education.shortDesc')}
           </p>
           <CourseGrid courses={CURTA_DURACAO} />
         </div>
@@ -131,28 +166,28 @@ export default function Education() {
 
       {subpage === 'formacao-continua' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">Formação Contínua e Corporativa</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('education.contTitle')}</h2>
           <div className="bg-white border-l-4 border-isec-crimson rounded p-6 shadow-sm mb-8">
-            <h3 className="text-xl font-bold text-isec-dark-gray mb-3">Soluções à Medida para Empresas</h3>
+            <h3 className="text-xl font-bold text-isec-dark-gray mb-3">{t('education.contSubTitle')}</h3>
             <p className="text-secondary mb-4">
-              O ISPTEC desenvolve programas de formação <i>in-company</i> desenhados especificamente para responder aos desafios de capacitação das empresas parceiras. Elaboramos currículos customizados nas áreas de Engenharia, Tecnologia de Informação e Gestão.
+              {t('education.contDesc')}
             </p>
             <ul className="space-y-2 text-secondary mb-6">
               <li className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-isec-crimson text-[20px]">check_circle</span>
-                Diagnóstico de necessidades formativas.
+                {t('education.contCheck1')}
               </li>
               <li className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-isec-crimson text-[20px]">check_circle</span>
-                Formato flexível: Instalações do ISPTEC, In-Company ou Online.
+                {t('education.contCheck2')}
               </li>
               <li className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-isec-crimson text-[20px]">check_circle</span>
-                Corpo docente de elite com experiência de mercado.
+                {t('education.contCheck3')}
               </li>
             </ul>
             <a href="/contacts" className="inline-block px-6 py-2 bg-isec-dark-gray text-white text-sm font-bold uppercase tracking-wider rounded hover:bg-isec-crimson transition-colors">
-              Contactar Equipa Corporativa
+              {t('education.contBtn')}
             </a>
           </div>
         </div>
@@ -160,23 +195,23 @@ export default function Education() {
 
       {subpage === 'ingresso' && (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">Formas de Ingresso</h2>
+          <h2 className="text-3xl font-light text-isec-dark-gray mb-6">{t('education.admTitle')}</h2>
           <p className="text-secondary mb-8">
-            Conheça as vias de acesso disponíveis para se tornar um estudante do ISPTEC. Selecione o regime que melhor se adapta à sua situação atual.
+            {t('education.admDesc')}
           </p>
 
           <div className="grid gap-6">
             <div className="border border-isec-silver rounded-lg overflow-hidden">
               <div className="bg-neutral-50 px-6 py-4 border-b border-isec-silver flex items-center gap-3">
                 <span className="material-symbols-outlined text-isec-crimson text-2xl">assignment</span>
-                <h3 className="text-xl font-bold text-isec-dark-gray m-0">Exame de Acesso Geral</h3>
+                <h3 className="text-xl font-bold text-isec-dark-gray m-0">{t('education.admGenTitle')}</h3>
               </div>
               <div className="p-6 bg-white">
                 <p className="text-secondary mb-4">
-                  A via principal de ingresso para candidatos que concluíram o ensino médio. Requer a realização e aprovação nos Exames de Acesso organizados pelo ISPTEC nas disciplinas nucleares (Matemática, Física ou outras, dependendo do curso).
+                  {t('education.admGenDesc')}
                 </p>
                 <a href="#" className="text-isec-crimson font-semibold hover:underline flex items-center gap-1">
-                  Consultar Calendário de Exames <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  {t('education.admGenBtn')} <span className="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
               </div>
             </div>
@@ -184,14 +219,14 @@ export default function Education() {
             <div className="border border-isec-silver rounded-lg overflow-hidden">
               <div className="bg-neutral-50 px-6 py-4 border-b border-isec-silver flex items-center gap-3">
                 <span className="material-symbols-outlined text-isec-crimson text-2xl">transfer_within_a_station</span>
-                <h3 className="text-xl font-bold text-isec-dark-gray m-0">Transferências e Mudança de Curso</h3>
+                <h3 className="text-xl font-bold text-isec-dark-gray m-0">{t('education.admTransTitle')}</h3>
               </div>
               <div className="p-6 bg-white">
                 <p className="text-secondary mb-4">
-                  Destinado a estudantes que já se encontram matriculados num estabelecimento de ensino superior (nacional ou estrangeiro) e pretendem continuar os seus estudos no ISPTEC, ou estudantes do ISPTEC que pretendam mudar de licenciatura.
+                  {t('education.admTransDesc')}
                 </p>
                 <a href="#" className="text-isec-crimson font-semibold hover:underline flex items-center gap-1">
-                  Ver Regulamento de Equivalências <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  {t('education.admTransBtn')} <span className="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
               </div>
             </div>
@@ -199,11 +234,11 @@ export default function Education() {
             <div className="border border-isec-silver rounded-lg overflow-hidden">
               <div className="bg-neutral-50 px-6 py-4 border-b border-isec-silver flex items-center gap-3">
                 <span className="material-symbols-outlined text-isec-crimson text-2xl">public</span>
-                <h3 className="text-xl font-bold text-isec-dark-gray m-0">Estudante Internacional</h3>
+                <h3 className="text-xl font-bold text-isec-dark-gray m-0">{t('education.admIntTitle')}</h3>
               </div>
               <div className="p-6 bg-white">
                 <p className="text-secondary">
-                  Estatuto especial aplicável a estudantes que não possuam a nacionalidade angolana. O processo envolve a validação documental e homologação dos certificados de habilitações obtidos no exterior.
+                  {t('education.admIntDesc')}
                 </p>
               </div>
             </div>

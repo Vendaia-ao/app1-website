@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface SidebarItem {
   label: string;
@@ -15,6 +16,7 @@ interface SidebarLayoutProps {
 }
 
 export default function SidebarLayout({ title, heroImageUrl, items, basePath, children }: SidebarLayoutProps) {
+  const { language, tMenu } = useLanguage();
   return (
     <div className="w-full flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -35,8 +37,8 @@ export default function SidebarLayout({ title, heroImageUrl, items, basePath, ch
       <div className="max-w-[1280px] mx-auto w-full px-10 py-12 flex flex-col lg:flex-row print:flex-col gap-12 flex-grow">
         
         {/* Sidebar */}
-        <aside aria-label="Menu de navegação lateral" className="w-full lg:w-[280px] shrink-0 flex flex-col gap-2 print:hidden">
-          <nav className="flex flex-col gap-2" aria-label="Navegação secundária">
+        <aside aria-label={language === 'en' ? "Side navigation menu" : "Menu de navegação lateral"} className="w-full lg:w-[280px] shrink-0 flex flex-col gap-2 print:hidden">
+          <nav className="flex flex-col gap-2" aria-label={language === 'en' ? "Secondary navigation" : "Navegação secundária"}>
             {items.map((item) => (
               <NavLink
                 key={item.path}
@@ -49,7 +51,7 @@ export default function SidebarLayout({ title, heroImageUrl, items, basePath, ch
                   }`
                 }
               >
-                {item.label}
+                {tMenu(item.label as any)}
               </NavLink>
             ))}
           </nav>

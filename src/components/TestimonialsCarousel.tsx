@@ -1,6 +1,7 @@
 import { useRef } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
-const MOCK_TESTIMONIALS = [
+const MOCK_TESTIMONIALS_PT = [
   {
     id: 1,
     name: 'Ana Bela Costa',
@@ -38,7 +39,47 @@ const MOCK_TESTIMONIALS = [
   }
 ];
 
+const MOCK_TESTIMONIALS_EN = [
+  {
+    id: 1,
+    name: 'Ana Bela Costa',
+    role: 'Computer Engineer (Alumni 2024)',
+    content: 'ISPTEC provided me with a fantastic practical vision and access to modern laboratories that skyrocketed my learning. The teachers\' demands truly prepared me for industry challenges.',
+    avatarInitials: 'AC',
+  },
+  {
+    id: 2,
+    name: 'Carlos Miguel',
+    role: 'Petroleum Engineering Student',
+    content: 'ISPTEC\'s strong connection to Sonangol and other partners greatly facilitates our integration into summer internships. I feel like I am being trained by the best professionals in the sector.',
+    avatarInitials: 'CM',
+  },
+  {
+    id: 3,
+    name: 'Sofia Mateus',
+    role: 'Financial Manager (Alumni 2021)',
+    content: 'Studying Business Management at ISPTEC opened doors for me in an extremely competitive market. The academic rigor and practical cases gave me the confidence needed to lead.',
+    avatarInitials: 'SM',
+  },
+  {
+    id: 4,
+    name: 'João Pedro',
+    role: 'Mechanical Engineering Student',
+    content: 'The quality of the infrastructure and the availability of teachers to support us in research projects make ISPTEC the best technological higher education institution in the country.',
+    avatarInitials: 'JP',
+  },
+  {
+    id: 5,
+    name: 'Mariana Silva',
+    role: 'Economist (Alumni 2022)',
+    content: 'The level of excellence that ISPTEC demands has transformed the way I work. The friendships and networking I built here are for life.',
+    avatarInitials: 'MS',
+  }
+];
+
 export default function TestimonialsCarousel() {
+  const { language } = useLanguage();
+  const MOCK_TESTIMONIALS = language === 'en' ? MOCK_TESTIMONIALS_EN : MOCK_TESTIMONIALS_PT;
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -56,23 +97,27 @@ export default function TestimonialsCarousel() {
       <div className="px-10 max-w-[1280px] w-full mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-isec-silver pb-4 mb-8 gap-4">
           <div>
-            <h2 className="text-2xl font-bold uppercase tracking-tight text-isec-dark-gray">Vozes da Nossa Comunidade</h2>
+            <h2 className="text-2xl font-bold uppercase tracking-tight text-isec-dark-gray">
+              {language === 'en' ? 'Voices of Our Community' : 'Vozes da Nossa Comunidade'}
+            </h2>
             <p className="text-secondary mt-1 max-w-xl">
-              Descubra a experiência de estudar no ISPTEC através das palavras dos nossos alunos e diplomados.
+              {language === 'en' 
+                ? 'Discover the experience of studying at ISPTEC through the words of our students and graduates.' 
+                : 'Descubra a experiência de estudar no ISPTEC através das palavras dos nossos alunos e diplomados.'}
             </p>
           </div>
           <div className="flex gap-2 shrink-0">
             <button 
               onClick={() => scroll('left')}
               className="w-10 h-10 rounded-full border border-isec-silver bg-white flex items-center justify-center text-isec-dark-gray hover:bg-isec-crimson hover:text-white hover:border-isec-crimson transition-colors shadow-sm"
-              aria-label="Testemunhos Anteriores"
+              aria-label={language === 'en' ? 'Previous Testimonials' : 'Testemunhos Anteriores'}
             >
               <span className="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_left</span>
             </button>
             <button 
               onClick={() => scroll('right')}
               className="w-10 h-10 rounded-full border border-isec-silver bg-white flex items-center justify-center text-isec-dark-gray hover:bg-isec-crimson hover:text-white hover:border-isec-crimson transition-colors shadow-sm"
-              aria-label="Próximos Testemunhos"
+              aria-label={language === 'en' ? 'Next Testimonials' : 'Próximos Testemunhos'}
             >
               <span className="material-symbols-outlined text-[20px]" aria-hidden="true">chevron_right</span>
             </button>
@@ -84,7 +129,7 @@ export default function TestimonialsCarousel() {
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden pb-8 pt-2"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           aria-live="polite"
-          aria-label="Carrossel de Testemunhos"
+          aria-label={language === 'en' ? 'Testimonials Carousel' : 'Carrossel de Testemunhos'}
         >
           {MOCK_TESTIMONIALS.map((testimonial) => (
             <div 

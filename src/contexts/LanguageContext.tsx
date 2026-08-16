@@ -4,7 +4,8 @@ import { Language, translations } from '../i18n/translations';
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, fallback?: string) => string;
+  tMenu: (label: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -24,13 +25,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('app_language', lang);
   };
 
-  const t = (path: string): string => {
+  const t = (path: string, fallback?: string): string => {
     const keys = path.split('.');
     let current: any = translations[language];
     
     for (const key of keys) {
       if (current[key] === undefined) {
-        return path; // Return the path if translation is missing
+        return fallback || path; // Return the fallback or path if translation is missing
       }
       current = current[key];
     }
@@ -38,8 +39,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     return current as string;
   };
 
+  const tMenu = (label: string): string => {
+    const menuDict = translations[language]['menu'] as any;
+    if (menuDict && menuDict[label]) {
+      return menuDict[label];
+    }
+    return label; // Fallback to original
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, tMenu }}>
       {children}
     </LanguageContext.Provider>
   );

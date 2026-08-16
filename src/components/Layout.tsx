@@ -12,7 +12,7 @@ import { mainNavigation } from '../data/navigation';
 export default function Layout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [expandedMobileMenu, setExpandedMobileMenu] = useState<string | null>(null);
-  const { t } = useLanguage();
+  const { language, t, tMenu } = useLanguage();
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   
@@ -57,7 +57,7 @@ export default function Layout() {
             <button 
               onClick={toggleMobileMenu}
               className="text-isec-dark-gray p-2 active:opacity-80 flex items-center justify-center"
-              aria-label="Alternar menu móvel"
+              aria-label={language === 'en' ? "Toggle mobile menu" : "Alternar menu móvel"}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
             >
@@ -69,7 +69,7 @@ export default function Layout() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div id="mobile-menu" role="navigation" aria-label="Menu principal móvel" className="lg:hidden fixed inset-0 top-[64px] z-40 bg-white overflow-y-auto border-t border-isec-silver animate-in slide-in-from-top-2 duration-200 print:hidden">
+        <div id="mobile-menu" role="navigation" aria-label={language === 'en' ? "Main mobile menu" : "Menu principal móvel"} className="lg:hidden fixed inset-0 top-[64px] z-40 bg-white overflow-y-auto border-t border-isec-silver animate-in slide-in-from-top-2 duration-200 print:hidden">
           <div className="flex flex-col p-6 gap-2">
             {mainNavigation.map((item) => (
               <div key={item.id} className="flex flex-col border-b border-isec-silver last:border-0 pb-2 mb-2">
@@ -85,7 +85,7 @@ export default function Layout() {
                     <button 
                       className="p-2 text-isec-dark-gray"
                       onClick={() => toggleMobileSubmenu(item.id)}
-                      aria-label={`Expandir submenu de ${item.label}`}
+                      aria-label={language === 'en' ? `Expand submenu for ${item.label}` : `Expandir submenu de ${item.label}`}
                       aria-expanded={expandedMobileMenu === item.id}
                       aria-controls={`mobile-submenu-${item.id}`}
                     >
@@ -104,7 +104,7 @@ export default function Layout() {
                         {column.map((section, secIdx) => (
                           <div key={secIdx} className="flex flex-col gap-2">
                             {section.title && (
-                              <h4 className="font-bold text-isec-dark-gray text-sm">{section.title}</h4>
+                              <h4 className="font-bold text-isec-dark-gray text-sm">{tMenu(section.title)}</h4>
                             )}
                             <div className="flex flex-col gap-2 pl-2 border-l border-isec-silver">
                               {section.links.map((link, linkIdx) => (
@@ -114,7 +114,7 @@ export default function Layout() {
                                   className="text-sm text-secondary hover:text-isec-crimson py-1"
                                   onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                  {link.label}
+                                  {tMenu(link.label)}
                                 </Link>
                               ))}
                             </div>

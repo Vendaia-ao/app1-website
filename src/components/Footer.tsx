@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Linkedin, Instagram, Youtube, Twitter } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -6,7 +6,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,8 +28,8 @@ export default function Footer() {
               <h3 className="text-white font-bold text-2xl tracking-tight mb-2">{t('footer.subscribe')}</h3>
               <p className="text-sm">{t('footer.subscribeText')}</p>
             </div>
-            <form onSubmit={handleSubscribe} className="w-full lg:w-auto flex flex-col sm:flex-row gap-3" aria-label="Formulário de subscrição de newsletter">
-              <label htmlFor="newsletter-email" className="sr-only">Endereço de email</label>
+            <form onSubmit={handleSubscribe} className="w-full lg:w-auto flex flex-col sm:flex-row gap-3" aria-label={language === 'en' ? "Newsletter subscription form" : "Formulário de subscrição de newsletter"}>
+              <label htmlFor="newsletter-email" className="sr-only">{language === 'en' ? "Email address" : "Endereço de email"}</label>
               <input 
                 id="newsletter-email"
                 type="email" 
@@ -42,7 +42,7 @@ export default function Footer() {
               />
               <button 
                 type="submit"
-                aria-label="Subscrever newsletter"
+                aria-label={language === 'en' ? "Subscribe to newsletter" : "Subscrever newsletter"}
                 className="h-12 px-8 rounded bg-isec-crimson text-white font-bold uppercase tracking-wider text-xs hover:bg-red-800 transition-colors shrink-0 flex items-center justify-center gap-2"
               >
                 {subscribed ? (

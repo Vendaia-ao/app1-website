@@ -1,7 +1,9 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function GenericPage() {
   const location = useLocation();
+  const { t } = useLanguage();
   const pathSegments = location.pathname.split('/').filter(Boolean);
   const title = pathSegments[pathSegments.length - 1]?.replace(/-/g, ' ') || 'Página';
 
@@ -14,11 +16,11 @@ export default function GenericPage() {
         {decodeURIComponent(title)}
       </h1>
       <p className="text-secondary max-w-lg text-lg">
-        Esta secção encontra-se atualmente em desenvolvimento no âmbito da reestruturação do portal do ISPTEC.
+        {t('generic_page.devMessage')}
       </p>
-      <a href="/" className="mt-8 px-6 py-3 bg-isec-crimson text-white font-bold uppercase text-xs tracking-wider hover:bg-red-800 transition-colors rounded">
-        Voltar à Home
-      </a>
+      <Link to="/" className="mt-8 px-6 py-3 bg-isec-crimson text-white font-bold uppercase text-xs tracking-wider hover:bg-red-800 transition-colors rounded">
+        {t('generic_page.backHome')}
+      </Link>
     </div>
   );
 }
